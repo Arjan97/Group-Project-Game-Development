@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 284199620}
   - component: {fileID: 284199625}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Raoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6151cd4152d784e8b4b453157b47ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 707758179}
+  player: {fileID: 447603636}
 --- !u!136 &284199621
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -889,6 +889,11 @@ MonoBehaviour:
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
+--- !u!4 &447603636 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2543304114486852532, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+  m_PrefabInstance: {fileID: 359091415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &540060323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2035,6 +2040,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259711597}
   m_CullTransparentMesh: 1
+--- !u!1 &1315483132 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6933531503535288841, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+  m_PrefabInstance: {fileID: 359091415}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1315483133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315483132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d637671dd742d9147af9aa1b46e4d621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1702417271
 GameObject:
   m_ObjectHideFlags: 0
