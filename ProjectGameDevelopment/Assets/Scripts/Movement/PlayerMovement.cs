@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 velocityChange = (targetVelocity - currentVelocity);
         velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
 
-        if (sprinting) { movementSpeed = 10f; animator.SetBool("goWalk", false);}
+        if (sprinting) { movementSpeed = 10f; animator.SetBool("goWalk", false); animator.SetBool("goRun", true); }
         else if (!sprinting) { movementSpeed = 5;}
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
@@ -89,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
     void SprintPressed()
     {
        sprinting= true;
-       animator.SetBool("goRun", true);
     }
 
     void SprintReleased()
