@@ -39,6 +39,4 @@ sysinfo.txt
 
 # Crashlytics generated file
 Assets/StreamingAssets/crashlytics-build.properties
-/PGD/Logs/*
-PGD/Logs/*
-Logs/*
+
