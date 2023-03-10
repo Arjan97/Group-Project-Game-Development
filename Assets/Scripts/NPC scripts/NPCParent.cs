@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCInteract : MonoBehaviour
+public class NPCParent : MonoBehaviour
 {
     public Transform player;
     public void Interact()
