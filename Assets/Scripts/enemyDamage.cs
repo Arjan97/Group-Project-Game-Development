@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyDamage : MonoBehaviour
+public class EnemyDamage : MonoBehaviour
 {
     public int damageAmount;
     // Start is called before the first frame update
@@ -21,7 +21,7 @@ public class enemyDamage : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerHealth health = collision.gameObject.GetComponent<playerHealth>();
+            PlayerHealth health = collision.gameObject.GetComponent<PlayerHealth>();
             health.TakeDamage(damageAmount);
         }
     }

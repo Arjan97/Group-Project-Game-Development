@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class playerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-    public playerSpawn respawnPoint;
+    public PlayerSpawn respawnPoint;
 
 
     private void Start()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerSpawn : MonoBehaviour
+public class PlayerSpawn : MonoBehaviour
 {
     public void RespawnPlayer(GameObject player)
     {
