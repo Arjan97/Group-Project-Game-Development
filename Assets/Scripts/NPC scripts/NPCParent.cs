@@ -15,12 +15,10 @@ public class NPCParent : MonoBehaviour
         if (gameObject.tag == "ShopNPC")
         {
             GetComponent<ShopNPC>().OnInteraction(); 
-        }
-        if (gameObject.tag == "GuideNPC")
+        }else if (gameObject.tag == "GuideNPC")
         {
             GetComponent<GuideNPC>().OnInteraction();
-        }
-        if (gameObject.tag == "TalkingNPC")
+        } else if (gameObject.tag == "TalkingNPC")
         {
             GetComponent<TalkingNPC>().OnInteraction();
         }

@@ -1320,8 +1320,8 @@ GameObject:
   - component: {fileID: 284199623}
   - component: {fileID: 284199622}
   - component: {fileID: 284199621}
-  - component: {fileID: 284199620}
   - component: {fileID: 284199625}
+  - component: {fileID: 284199620}
   - component: {fileID: 284199626}
   m_Layer: 0
   m_Name: ShopNPC
@@ -1377,7 +1377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb4aa258114560f42b964f47731d0165, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1990,7 +1990,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bb4aa258114560f42b964f47731d0165, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10234,9 +10234,9 @@ GameObject:
   - component: {fileID: 1928837163}
   - component: {fileID: 1928837162}
   - component: {fileID: 1928837161}
-  - component: {fileID: 1928837160}
   - component: {fileID: 1928837167}
   - component: {fileID: 1928837166}
+  - component: {fileID: 1928837168}
   m_Layer: 0
   m_Name: TalkingNPC
   m_TagString: TalkingNPC
@@ -10244,19 +10244,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1928837160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928837159}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25221058ddeca16419710ec12d7f67b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  terrain: {fileID: 345493394}
 --- !u!195 &1928837161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10384,6 +10371,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28ac8648b4d2ca438b1c20e5065535c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1928837168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928837159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25221058ddeca16419710ec12d7f67b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 0}
 --- !u!1001 &1945984626
 PrefabInstance:
   m_ObjectHideFlags: 0
