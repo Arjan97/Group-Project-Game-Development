@@ -18,7 +18,20 @@ public class NPCInteract : MonoBehaviour
     }
     public void Interact()
     {
-        Debug.Log("Sup Daniel");
+        Debug.Log("NPC interacts with player");
         transform.LookAt(player);
+
+        if (gameObject.tag == "ShopNPC")
+        {
+            //
+        }
+        if (gameObject.tag == "GuideNPC")
+        {
+            //
+        }
+        if (gameObject.tag == "TalkingNPC")
+        {
+            //
+        }
     }
 }
