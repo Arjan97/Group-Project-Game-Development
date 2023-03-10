@@ -25,6 +25,8 @@ public class ShopManager : MonoBehaviour
 
         //perserve object during scene loading
         DontDestroyOnLoad(gameObject);
+
+        shopUI.active = false;
     }
 
     private void Start()
@@ -60,12 +62,6 @@ public class ShopManager : MonoBehaviour
 
         }
     }
-
-    /*public void ToggleShop()
-    {
-        //if shopUI is active, it turns inactive
-        shopUI.SetActive(!shopUI.activeSelf);
-    }*/
 
     private void OnGUI()
     {
