@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCParent : MonoBehaviour
 {
     public Transform player;
-    public void Interact()
+    public void InteractWithNPC()
     {
         Debug.Log("NPC interacts with player");
         transform.LookAt(player);
@@ -16,6 +16,7 @@ public class NPCParent : MonoBehaviour
         }
         if (gameObject.tag == "GuideNPC")
         {
+            GetComponent<GuideNPC>().OnInteraction();
 
         }
         if (gameObject.tag == "TalkingNPC")
