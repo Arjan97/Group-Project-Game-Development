@@ -16,4 +16,6 @@ public class ShopNPC : MonoBehaviour
         /* Enable/disable the shop by setting the shopUI to active/inactive  */
         shopUI.SetActive(!shopUI.activeSelf);
     }
+
+    
 }
