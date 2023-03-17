@@ -11,6 +11,7 @@ public class PlayerMovement2 : MonoBehaviour
     public Rigidbody rb;
     public GameObject cameraHead;
     public float force;
+    
 
     public float sensitivity = 0.1f;
     private float lookRotation;
@@ -83,13 +84,14 @@ public class PlayerMovement2 : MonoBehaviour
 
     void Idle()
     {
-        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false);}
+        Vector2 input = inputMaster.Player.Movement.ReadValue<Vector2>();
+
+        if (input == Vector2.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false);}
         else {animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
     }
     void SprintPressed()
     {
        sprinting= true;
-
     }
 
     void SprintReleased()
