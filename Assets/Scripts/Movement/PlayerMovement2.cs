@@ -52,6 +52,7 @@ public class PlayerMovement2 : MonoBehaviour
         Look();
     }
 
+    // movement code
     private void Move()
     {
         
@@ -74,6 +75,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     }
 
+    // set idle animation
     void Idle()
     {
         Vector2 input = inputMaster.Player.Movement.ReadValue<Vector2>();
@@ -81,17 +83,21 @@ public class PlayerMovement2 : MonoBehaviour
         if (input == Vector2.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false);}
         else {animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
     }
+    
+    // check if the sprint button is pressed
     void SprintPressed()
     {
        sprinting= true;
     }
 
+    // check if the sprint button is released
     void SprintReleased()
     {
         sprinting = false;
         animator.SetBool("goRun", false);
     }
 
+    // look around code
     void Look()
     {
         Vector2 look = inputMaster.Player.Look.ReadValue<Vector2>();
