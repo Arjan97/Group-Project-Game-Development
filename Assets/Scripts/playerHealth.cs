@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    [SerializeField]
+    static public int maxHealth = 100;
+    static public int currentHealth;
     public PlayerSpawn respawnPoint;
 
 

@@ -8,6 +8,7 @@ TagManager:
   - ShopNPC
   - GuideNPC
   - TalkingNPC
+  - HealthPickup
   layers:
   - Default
   - TransparentFX
