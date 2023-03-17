@@ -31,14 +31,6 @@ public class PlayerMovement2 : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision acollision)
-    {
-        //if (acollision.collider.CompareTag("Obstacle"))
-        //{
-        //    movementSpeed = 0;
-        //}
-
-    }
 
     private void OnEnable()
     {
