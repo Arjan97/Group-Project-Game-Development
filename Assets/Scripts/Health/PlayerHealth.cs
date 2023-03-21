@@ -4,7 +4,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     static public int maxHealth = 100;
-    static public int currentHealth;
+    public int currentHealth;
     public int takeDamage = 10;
     public PlayerSpawn respawnPoint;
     public HealthBar healthBar;

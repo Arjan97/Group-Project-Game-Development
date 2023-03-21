@@ -23,14 +23,14 @@ public class HealthPickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (PlayerHealth.currentHealth < PlayerHealth.maxHealth)
+            //if (PlayerHealth.currentHealth < PlayerHealth.maxHealth)
             {
                 Destroy(gameObject);
                 //PlayerHealth.currentHealth = PlayerHealth.currentHealth + healthGain;
                 PlayerHealth heal = other.gameObject.GetComponent<PlayerHealth>();
                 heal.GainHealth(healthGain);
                 Debug.Log("Gained " + healthGain + " health");
-                Debug.Log("total health = " + PlayerHealth.currentHealth);
+                //Debug.Log("total health = " + PlayerHealth.currentHealth);
             }
         }
     }
