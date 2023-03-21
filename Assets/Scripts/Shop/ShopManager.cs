@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
 
         //shopUI.active = false;
 
-        playerHealth = GetComponent<PlayerHealth>();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     private void Start()
