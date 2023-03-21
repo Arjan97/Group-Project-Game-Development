@@ -43,7 +43,6 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Idle();
         Move();
     }
     private void LateUpdate()
@@ -105,13 +104,16 @@ public class PlayerMovement2 : MonoBehaviour
         if (locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
-
             Look();
+            Idle();
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
             movementSpeed = 0;
+            animator.SetBool("goWalk", false);
+            animator.SetBool("goRun", false);
+            animator.SetBool("goIdle", true) ;
         }
     }
 }
