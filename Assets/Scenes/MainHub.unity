@@ -4212,7 +4212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: 165}
+  m_AnchoredPosition: {x: -210.2, y: 165}
   m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687769907
@@ -7650,6 +7650,7 @@ MonoBehaviour:
   cameraHead: {fileID: 531634385}
   force: 0
   sensitivity: 0.1
+  locked: 1
 --- !u!114 &1357184415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7674,6 +7675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8df83ba67d650c47abe85743fe535af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeDamage: 10
   respawnPoint: {fileID: 0}
   healthBar: {fileID: 687769908}
 --- !u!1001 &1368767518
