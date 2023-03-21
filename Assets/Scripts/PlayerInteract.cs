@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    PlayerMovement2 Script;
+    public void Awake()
+    {
+        Script = GetComponent<PlayerMovement2>();
+
+
+    }
     void Update()
     {
         /* If player presses the specified button */
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Script.locked = !Script.locked;
             /* Set the range of from where the player can interact with */
             float interactRange = 2f;
 
