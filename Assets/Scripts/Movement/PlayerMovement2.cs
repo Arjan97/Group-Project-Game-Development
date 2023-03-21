@@ -106,7 +106,7 @@ public class PlayerMovement2 : MonoBehaviour
         lookRotation += (-look.y * sensitivity);
         lookRotation = Mathf.Clamp(lookRotation, -30, 10);
 
-        cameraHead.transform.eulerAngles = new Vector3(lookRotation, cameraHead.transform.eulerAngles.y, cameraHead.transform.eulerAngles.z);
+       // cameraHead.transform.eulerAngles = new Vector3(lookRotation, cameraHead.transform.eulerAngles.y, cameraHead.transform.eulerAngles.z);
         Cursor.lockState = CursorLockMode.Locked;
     }
 

@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    public bool isInteracting;
     void Update()
     {
         /* If player presses the specified button */
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) )
         {
-            /* Set the range of from where the player can interact with */
-            float interactRange = 2f;
-
-            /* Make an array of collider rays that shoot from the player position towards every direction with length of interactRange */
-            Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
-
-            /* Foreach ray that hit another collider */
-            foreach (Collider collider in colliderArray)
+            if (isInteracting == false)
             {
-                /* Get the NPCParent script reference */
-                if (collider.TryGetComponent(out NPCParent npcInteractable))
+                /* Set the range of from where the player can interact with */
+                float interactRange = 2f;
+
+                /* Make an array of collider rays that shoot from the player position towards every direction with length of interactRange */
+                Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+
+                /* Foreach ray that hit another collider */
+                foreach (Collider collider in colliderArray)
                 {
-                    /* Call the InteractWithNPC method from the NPC that the ray hits */
-                    npcInteractable.InteractWithNPC();
+                    /* Get the NPCParent script reference */
+                    if (collider.TryGetComponent(out NPCParent npcInteractable))
+                    {
+                        isInteracting = true;
+                        /* Call the InteractWithNPC method from the NPC that the ray hits */
+                        npcInteractable.InteractWithNPC();
+                    }
                 }
+            }  else if (isInteracting)
+            {
+                isInteracting = false; 
             }
         }
     }
