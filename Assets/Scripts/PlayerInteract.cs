@@ -16,7 +16,7 @@ public class PlayerInteract : MonoBehaviour
         /* If player presses the specified button */
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Script.locked = !Script.locked;
+            
             /* Set the range of from where the player can interact with */
             float interactRange = 2f;
 
@@ -31,6 +31,7 @@ public class PlayerInteract : MonoBehaviour
                 {
                     /* Call the InteractWithNPC method from the NPC that the ray hits */
                     npcInteractable.InteractWithNPC();
+                    Script.locked = !Script.locked;
                 }
             }
         }
