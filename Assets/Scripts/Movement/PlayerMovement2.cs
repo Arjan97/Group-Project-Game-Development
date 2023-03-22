@@ -81,7 +81,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     public void Idle()
     {
-        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); Debug.Log("idle now"); }
+        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); }
         else { animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
     }
     void SprintPressed()
