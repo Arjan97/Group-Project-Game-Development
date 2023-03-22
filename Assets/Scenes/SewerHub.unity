@@ -51499,6 +51499,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6962052653666131018, guid: ddef51a13789c83489d0f90e7c9cc58b, type: 3}
   m_PrefabInstance: {fileID: 1966788198}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1967722923 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2820194870311602215, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+  m_PrefabInstance: {fileID: 359091415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1967861084
 PrefabInstance:
   m_ObjectHideFlags: 0

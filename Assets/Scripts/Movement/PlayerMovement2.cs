@@ -9,7 +9,6 @@ public class PlayerMovement2 : MonoBehaviour
     Animator animator;
 
     public Rigidbody rb;
-    public GameObject cameraHead;
     public float force;
 
 
@@ -19,6 +18,10 @@ public class PlayerMovement2 : MonoBehaviour
 
     private bool sprinting;
     public bool locked = true;
+
+
+
+
 
     private void Awake()
     {
@@ -44,6 +47,8 @@ public class PlayerMovement2 : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        Idle();
+        Move();
     }
     private void LateUpdate()
     {
@@ -66,15 +71,19 @@ public class PlayerMovement2 : MonoBehaviour
 
         if (sprinting && rb.velocity != Vector3.zero) { movementSpeed = 10f; animator.SetBool("goWalk", false); animator.SetBool("goRun", true); }
         else if (!sprinting) { movementSpeed = 5; }
+        if (sprinting) { movementSpeed = 10f; animator.SetBool("goWalk", false); animator.SetBool("goRun", true); }
+        else if (!sprinting) { movementSpeed = 5; }
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
-    void Idle()
+    public void Idle()
     {
         Vector2 input = inputMaster.Player.Movement.ReadValue<Vector2>();
 
         if (input == Vector2.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); }
+        else { animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
+        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); Debug.Log("idle now"); }
         else { animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
     }
     void SprintPressed()
@@ -90,6 +99,7 @@ public class PlayerMovement2 : MonoBehaviour
 
     void Look()
     {
+
         Vector2 look = inputMaster.Player.Look.ReadValue<Vector2>();
 
         transform.Rotate(Vector3.up * look.x * sensitivity);
@@ -115,5 +125,6 @@ public class PlayerMovement2 : MonoBehaviour
             animator.SetBool("goRun", false);
             animator.SetBool("goIdle", true) ;
         }
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
