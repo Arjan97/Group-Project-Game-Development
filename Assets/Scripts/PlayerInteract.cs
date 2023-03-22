@@ -14,14 +14,14 @@ public class PlayerInteract : MonoBehaviour
     void Update()
     {
         /* If player presses the specified button */
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) )
         {
             
             /* Set the range of from where the player can interact with */
             float interactRange = 2f;
 
-            /* Make an array of collider rays that shoot from the player position towards every direction with length of interactRange */
-            Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+                /* Make an array of collider rays that shoot from the player position towards every direction with length of interactRange */
+                Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
             /* Foreach ray that hit another collider */
             foreach (Collider collider in colliderArray)
