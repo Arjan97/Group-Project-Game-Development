@@ -5,13 +5,15 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     //[SerializeField]
-    //public PlayerHealth playerHealth;
+    public PlayerHealth playerHealth;
     public int healthGain = -10;
     public float rotateSpeed = 1000f;
 
     private void Awake()
     {
         //Debug.Log("current health = " + PlayerHealth.currentHealth);
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        Debug.Log(playerHealth);
     }
 
     private void Update()
@@ -23,14 +25,13 @@ public class HealthPickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (PlayerHealth.currentHealth < PlayerHealth.maxHealth)
+            if (playerHealth.currentHealth < 100)
             {
                 Destroy(gameObject);
                 //PlayerHealth.currentHealth = PlayerHealth.currentHealth + healthGain;
-                PlayerHealth heal = other.gameObject.GetComponent<PlayerHealth>();
-                heal.GainHealth(healthGain);
+                playerHealth.GainHealth(25);
                 Debug.Log("Gained " + healthGain + " health");
-                Debug.Log("total health = " + PlayerHealth.currentHealth);
+                //Debug.Log("total health = " + PlayerHealth.currentHealth);
             }
         }
     }

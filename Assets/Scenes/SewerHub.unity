@@ -1190,7 +1190,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2043591896}
   m_HandleRect: {fileID: 0}
@@ -18320,7 +18320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99db5c4cf6f72145afc66d1e12d0110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: 300
+  coins: 500
   upgrades:
   - name: Health
     cost: 10
