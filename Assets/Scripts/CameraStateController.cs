@@ -22,7 +22,7 @@ public class CameraStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<PlayerInteract>().isInteracting)
+        /*if (player.GetComponent<PlayerInteract>().isInteracting)
         {
             animator.SetBool("ThirdPerson", false);
             animator.SetBool("Interacting", true);
@@ -30,6 +30,6 @@ public class CameraStateController : MonoBehaviour
         {
             animator.SetBool("ThirdPerson", true);
             animator.SetBool("Interacting", false);
-        }
+        }*/
     }
 }
