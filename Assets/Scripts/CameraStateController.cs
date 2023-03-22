@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class CameraStateController : MonoBehaviour
 { 
-    Animator animator;
+    private Animator animator;
     public GameObject player;
 
     void Start()
@@ -15,6 +15,7 @@ public class CameraStateController : MonoBehaviour
         /* Get the animator component */
         animator = GetComponent<Animator>();
 
+        /* Default state of the camera is ThirdPerson */
         animator.SetBool("ThirdPerson", true);
         animator.SetBool("Interacting", false);
     }
@@ -22,14 +23,16 @@ public class CameraStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (player.GetComponent<PlayerInteract>().isInteracting)
+        /* Adjust the camera animator by looking if the player is interacting */
+        if (player.GetComponent<PlayerInteract>().isInteracting)
         {
             animator.SetBool("ThirdPerson", false);
             animator.SetBool("Interacting", true);
-        } else
+        }
+        else
         {
             animator.SetBool("ThirdPerson", true);
             animator.SetBool("Interacting", false);
-        }*/
+        }
     }
 }

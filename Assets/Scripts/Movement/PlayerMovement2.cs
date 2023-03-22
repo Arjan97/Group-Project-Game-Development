@@ -83,7 +83,7 @@ public class PlayerMovement2 : MonoBehaviour
 
         if (input == Vector2.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); }
         else { animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
-        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); Debug.Log("idle now"); }
+        if (rb.velocity == Vector3.zero) { animator.SetBool("goIdle", true); animator.SetBool("goWalk", false); animator.SetBool("goRun", false); }
         else { animator.SetBool("goIdle", false); animator.SetBool("goWalk", true); }
     }
     void SprintPressed()
@@ -109,7 +109,7 @@ public class PlayerMovement2 : MonoBehaviour
 
         //cameraHead.transform.eulerAngles = new Vector3(lookRotation, cameraHead.transform.eulerAngles.y, cameraHead.transform.eulerAngles.z);
     }
-    void LockCursor()
+    public void LockCursor()
     {
         if (locked)
         {
@@ -119,12 +119,11 @@ public class PlayerMovement2 : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
             movementSpeed = 0;
             animator.SetBool("goWalk", false);
             animator.SetBool("goRun", false);
             animator.SetBool("goIdle", true) ;
         }
-        Cursor.lockState = CursorLockMode.Locked;
     }
 }
