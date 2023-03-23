@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 3f;
-    public float stoppingDistance = 1f;
+    public float speed = 5.0f; // speed at which the enemy moves towards the player
+    public float detectionRange = 10.0f; // range within which the enemy can detect the player
+    private Transform player; // reference to the player's transform
 
-    private Transform player;
-
-    private void Start()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    void Update()
     {
-        // Move the enemy towards the player
-        transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+        // calculate the distance between the enemy and the player
+        float distance = Vector3.Distance(transform.position, player.position);
 
-        // Rotate the enemy towards the player
-        transform.LookAt(player);
-
-        // Stop moving if the enemy is close enough to the player
-        if (Vector3.Distance(transform.position, player.position) < stoppingDistance)
+        // if the player is within the detection range
+        if (distance <= detectionRange)
         {
-            speed = 0;
+            // calculate the direction to move towards the player
+            Vector3 direction = (player.position - transform.position).normalized;
+
+            // move the enemy towards the player
+            transform.position += direction * speed * Time.deltaTime;
+
+            // rotate the enemy to face the player
+            transform.LookAt(player);
         }
     }
 }

@@ -624,8 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b21ed46f8bdbe4bae20b5617b6e1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  stoppingDistance: 1
+  speed: 5
+  detectionRange: 10
 --- !u!114 &3801775300086963389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,11 +638,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192b2e6bd154325469914a3ddaeaf522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
   maxHealth: 100
   fireballDamage: 50
+  fireballDamageOvertime: 4
+  burnTickTimers: 
+  iceballDamage: 25
+  iceballSlowDuration: 2
+  iceballSlowAmount: 0.5
   slider: {fileID: 570202451}
   healthBarUI: {fileID: 6131807686814483015}
-  currentHealth: 0
 --- !u!1 &6131807686814483015
 GameObject:
   m_ObjectHideFlags: 0
