@@ -36,7 +36,7 @@ public class PlayerInteract : MonoBehaviour
                     } else
                     {
                         /* If the player is already interacting, it has to stop doing so */
-                        OnInteractionExit();
+                        OnInteractionExit(npcInteractable);
                     }
                 }
             }
@@ -77,8 +77,10 @@ public class PlayerInteract : MonoBehaviour
     /// Method to call when the payer has to stop interacting with a NPC
     /// Enables movement and rotation
     /// </summary>
-    private void OnInteractionExit()
+    private void OnInteractionExit(NPCParent npc)
     {
+        npc.InteractWithNPC();
+
         /* Set the isInteracting bool to false to adjust the camera after interaction */
         isInteracting = false;
 
