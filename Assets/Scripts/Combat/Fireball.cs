@@ -9,7 +9,6 @@ public class Fireball : MonoBehaviour
     public GameObject fireballPrefab;
     public Transform fireballSpawnPoint;
     public float fireballSpeed = 10f;
-    public float fireballDamage = 10f;
     public float fireballCooldownTime = 3f;
 
     private bool canShoot = true;
