@@ -46,7 +46,6 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
         Idle();
         Move();
     }
