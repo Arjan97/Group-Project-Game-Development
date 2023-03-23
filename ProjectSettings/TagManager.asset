@@ -12,6 +12,7 @@ TagManager:
   - HealthUI
   - Enemy
   - Fireball
+  - Iceball
   layers:
   - Default
   - TransparentFX

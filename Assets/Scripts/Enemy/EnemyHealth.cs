@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
 
     //iceball
     public float iceballDamage = 25f;
-    public float iceballSlowDuration = 2f;
+    public float iceballSlowDuration = 6f;
     public float iceballSlowAmount = 0.5f;
     private bool isSlowed = false;
     //UI
@@ -124,12 +124,12 @@ public class EnemyHealth : MonoBehaviour
     }
     IEnumerator SlowEnemy()
     {
+        Color originalColor = GetComponent<Renderer>().material.color;
+        TakeDamage(iceballDamage);
+        yield return new WaitForSeconds(0.2f);
         // Apply slowing effect to the enemy
         float originalSpeed = GetComponent<EnemyMovement>().speed;
         GetComponent<EnemyMovement>().speed *= iceballSlowAmount;
-        Color originalColor = GetComponent<Renderer>().material.color;
-
-        TakeDamage(iceballDamage);
         GetComponent<Renderer>().material.color = Color.blue;
 
         // Wait for the slow duration to elapse
