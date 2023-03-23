@@ -24,7 +24,7 @@ public class Fireball : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
             FireFireball();
             canShoot = false;

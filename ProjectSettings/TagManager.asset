@@ -10,11 +10,13 @@ TagManager:
   - TalkingNPC
   - HealthPickup
   - HealthUI
+  - Enemy
+  - Fireball
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Abilities
   - Water
   - UI
   - 
