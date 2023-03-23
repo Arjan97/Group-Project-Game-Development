@@ -9,6 +9,7 @@ TagManager:
   - GuideNPC
   - TalkingNPC
   - HealthPickup
+  - HealthUI
   layers:
   - Default
   - TransparentFX

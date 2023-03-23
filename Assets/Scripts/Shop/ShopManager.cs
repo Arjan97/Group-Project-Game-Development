@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour
     public Transform shopContent;
     public GameObject itemPrefab;
     public PlayerHealth playerHealth;
+    public HealthBar healthBar;
 
     //public PlayerMovement player; for speed need to check movement class
 
@@ -31,6 +32,7 @@ public class ShopManager : MonoBehaviour
         //shopUI.active = false;
 
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        healthBar = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HealthBar>();
     }
 
     private void Start()
@@ -64,7 +66,7 @@ public class ShopManager : MonoBehaviour
             //text = upgrade.quantity.ToString();
 
             //apply upgrade
-            //if (PlayerHealth.currentHealth < PlayerHealth.maxHealth)
+            if (playerHealth.currentHealth < playerHealth.maxHealth)
                 ApplyUpgrade(upgrade);
 
         }
@@ -77,8 +79,9 @@ public class ShopManager : MonoBehaviour
         {
             case "Health":
                 //PlayerHealth healHealth = gameObject.GetComponent<PlayerHealth>();
-                playerHealth.currentHealth += playerHealth.currentHealth += 20;
-                //healthBar.SetHealth(currentHealth);
+                //playerHealth.currentHealth += playerHealth.currentHealth += 20;
+                playerHealth.currentHealth = playerHealth.maxHealth;
+                //healthBar.SetHealth(playerHealth.currentHealth);
                 Debug.Log("player gained health by ship");
                 Debug.Log(playerHealth.currentHealth);
                 break;
