@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -8,7 +10,6 @@ public class PlayerHealth : MonoBehaviour
     public int takeDamage = 10;
     public PlayerSpawn respawnPoint;
     public HealthBar healthBar;
-
 
     private void Start()
     {

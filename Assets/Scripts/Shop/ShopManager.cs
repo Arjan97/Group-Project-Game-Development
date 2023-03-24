@@ -29,7 +29,7 @@ public class ShopManager : MonoBehaviour
         //perserve object during scene loading
         DontDestroyOnLoad(gameObject);
 
-        //shopUI.active = false;
+        shopUI.SetActive(false);
 
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         healthBar = GameObject.FindGameObjectWithTag("HealthUI").GetComponent<HealthBar>();
