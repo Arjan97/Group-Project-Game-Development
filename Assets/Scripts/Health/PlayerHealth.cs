@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        healthBar.SetHealth(currentHealth);
         if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(takeDamage);
@@ -29,7 +30,6 @@ public class PlayerHealth : MonoBehaviour
     {
         // Subtract the damage from the player's health
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
         Debug.Log("Player taking damage!");
 
         // Check if the player is dead
