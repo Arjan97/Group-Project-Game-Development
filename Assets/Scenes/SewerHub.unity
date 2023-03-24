@@ -7374,7 +7374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 302270466}
   force: 0
-  sensitivity: 0.1
+  sensitivity: 0.075
   locked: 1
 --- !u!54 &302270466
 Rigidbody:
@@ -25122,8 +25122,8 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_UpdateMethod: 0
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -33872,7 +33872,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287677507}
-  m_LocalRotation: {x: 0.12189865, y: -0.7775883, z: 0.15904142, w: 0.59598917}
+  m_LocalRotation: {x: 0.121868476, y: -0.7777013, z: 0.15906453, w: 0.59584165}
   m_LocalPosition: {x: 3.21, y: 3.8400002, z: 4.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -40127,7 +40127,7 @@ MonoBehaviour:
     m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 0.5
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []

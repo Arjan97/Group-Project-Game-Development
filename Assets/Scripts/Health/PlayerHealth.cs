@@ -11,7 +11,6 @@ public class PlayerHealth : MonoBehaviour
     public PlayerSpawn respawnPoint;
     public HealthBar healthBar;
 
-
     private void Start()
     {
         //start with maximum health & healthbar
