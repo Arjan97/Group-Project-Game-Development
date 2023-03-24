@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SewerHub.unity
+    guid: e830faaf56d025b4c8dd5e4db7352691
+  - enabled: 1
+    path: Assets/Scenes/SampleScene 1.unity
+    guid: 6494c4ab31f573e47b172fa9ebf513e4
   m_configObjects: {}

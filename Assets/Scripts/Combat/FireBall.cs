@@ -1,61 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+
+public class Fireball : MonoBehaviour
 {
     public GameObject fireballPrefab;
     public Transform fireballSpawnPoint;
     public float fireballSpeed = 10f;
-    public float fireballLifetime = 2f;
-    public float cooldown = 1f;
-    private bool canShoot = true;
-    private Camera mainCamera;
+    public float fireballCooldownTime = 3f;
 
-    private void Start()
+    private bool canShoot = true;
+    private float fireballCooldownTimer;
+    private TextMeshProUGUI cooldownText;
+
+    void Start()
     {
-        mainCamera = Camera.main;
+        cooldownText = GameObject.Find("CooldownText").GetComponent<TextMeshProUGUI>();
+        cooldownText.text = "";
     }
 
     void Update()
     {
-        if (canShoot && Input.GetButtonDown("Fire1"))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            ShootFireball();
+            FireFireball();
+            canShoot = false;
+            fireballCooldownTimer = fireballCooldownTime;
+        }
+
+        if (!canShoot)
+        {
+            fireballCooldownTimer -= Time.deltaTime;
+            cooldownText.text = "Cooldown: " + fireballCooldownTimer.ToString("F1") + "s";
+
+            if (fireballCooldownTimer <= 0f)
+            {
+                canShoot = true;
+                cooldownText.text = "";
+            }
         }
     }
 
-    void ShootFireball()
+    void FireFireball()
     {
-        // Set canShoot to false to start the cooldown
-        canShoot = false;
-
-        // Instantiate the fireball prefab at the fireball spawn point
         GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
-
-        // Calculate the direction to shoot the fireball based on the mouse position
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = mainCamera.nearClipPlane;
-        Vector3 direction = mainCamera.ScreenToWorldPoint(mousePosition) - fireballSpawnPoint.position;
-        direction.Normalize();
-
-        // Rotate the fireball to face the direction it will be moving
-        fireball.transform.rotation = Quaternion.LookRotation(direction);
-
-        // Add force to the fireball in the calculated direction
-        fireball.GetComponent<Rigidbody>().AddForce(direction * fireballSpeed, ForceMode.VelocityChange);
-
-        // Destroy the fireball after the specified lifetime
-        Destroy(fireball, fireballLifetime);
-        // Start the cooldown coroutine
-        StartCoroutine(Cooldown());
-    }
-
-    IEnumerator Cooldown()
-    {
-        yield return new WaitForSeconds(cooldown);
-
-        // Set canShoot to true to allow shooting again
-        canShoot = true;
+        Rigidbody rb = fireball.GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * fireballSpeed;
+        Destroy(fireball, 5f);
     }
 }
