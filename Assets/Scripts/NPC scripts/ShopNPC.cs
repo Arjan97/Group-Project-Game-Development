@@ -2,17 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopNPC : MonoBehaviour
+/// <summary>
+/// Class for the shop NPCs that derives from the NPCparent class
+/// Opens the shop window for the player upon interaction
+/// </summary>
+public class ShopNPC : NPCParent
 {
+    /* Drag the ShopUI in the inspector to be able to open/close the shop window */
     public GameObject shopUI;
 
     /// <summary>
-    /// Method to call when the player interacts with this npc
+    /// Method gets called when the script instance is being loaded
+    /// Sets the name and tag of this NPC to the given parameter
     /// </summary>
-    public void OnInteraction()
+    public void Awake()
     {
-        /* Enable/disable the shop by setting the shopUI to active/inactive  */
-        shopUI.SetActive(!shopUI.activeSelf);
+        SetName("ShopNPC");
     }
 
+    /// <summary>
+    /// Method to call when the player interacts with this NPC
+    /// First checks if the tag corresponds with the name of this object 
+    /// Sets interactable to true to make the player be in the interacting state
+    /// Opens the shop window for the player
+    /// </summary>
+    public override void StartInteraction()
+    {
+        if (TagEqualsName())
+        {
+            base.ExitInteraction();
+            interactable = true;
+
+            /* Toggle the shop by deactivating the gameObject */
+            shopUI.SetActive(!shopUI.activeSelf);
+        }
+
+    }
+
+    /// <summary>
+    /// Method gets called when the player exits the interaction with this NPC
+    /// First checks if the tag is the same as the name before exiting
+    /// Sets interactable bool to false to stop the player's interacting state
+    /// Closes the shop window 
+    /// </summary>
+    public override void ExitInteraction()
+    {
+        if (TagEqualsName())
+        {
+            base.ExitInteraction();
+            interactable = false;
+
+            /* Toggle the shop by deactivating the gameObject */
+            shopUI.SetActive(!shopUI.activeSelf);
+        }
+    }
 }

@@ -41,6 +41,8 @@ public class PlayerInteract : MonoBehaviour
                 }
             }
         }
+
+        
     }
 
     /// <summary>
@@ -50,28 +52,28 @@ public class PlayerInteract : MonoBehaviour
     /// <param name="npc"></param>
     private void OnInteractionStart(NPCParent npc)
     {
-        /* Set the isInteracting bool to true to let the camera adjust */
-        isInteracting = true;
-
-        /* Call the interactwithNPC method that the player is interacting with */
-        //npc.InteractWithNPC();
+    
         npc.StartInteraction();
 
-        /* Set the locked bool to not locked */
-        movementScript.locked = !movementScript.locked;
+        if (npc.interactable)
+        {
+            isInteracting = true;
 
-        /* Then call the method to unlock the cursor in the game window */
-        movementScript.LockCursor();
+            /* Set the locked bool to not locked */
+            movementScript.locked = !movementScript.locked;
 
-        /* Get the rigidbody of the player and set its velocity to 0 */
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+            /* Then call the method to unlock the cursor in the game window */
+            movementScript.LockCursor();
 
-        /* Call the Idle method from the movementScript to start the idle animation */
-        movementScript.Idle();
+            /* Get the rigidbody of the player and set its velocity to 0 */
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-        /* Disable the movement script to stop the player from moving and rotating while interacting */
-        movementScript.enabled = false;
+            /* Call the Idle method from the movementScript to start the idle animation */
+            movementScript.Idle();
 
+            /* Disable the movement script to stop the player from moving and rotating while interacting */
+            movementScript.enabled = false;
+        }
     }
 
     /// <summary>
@@ -90,6 +92,5 @@ public class PlayerInteract : MonoBehaviour
 
         /* Enable the movement script after interacting to let the player move and rotate again */
         movementScript.enabled = true;
-
     }
 }
