@@ -1963,6 +1963,22 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 1091136601}
+    - target: {fileID: 1462413645, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+      propertyPath: m_Height
+      value: 1.8760898
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462413645, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+      propertyPath: m_Radius
+      value: 0.36501315
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462413645, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+      propertyPath: m_Center.x
+      value: -0.059791535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1462413645, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
+      propertyPath: m_Center.y
+      value: 0.8238696
+      objectReference: {fileID: 0}
     - target: {fileID: 6933531503535288841, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
       propertyPath: m_Name
       value: Character Variant
