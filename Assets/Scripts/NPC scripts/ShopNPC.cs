@@ -30,13 +30,11 @@ public class ShopNPC : NPCParent
     {
         if (TagEqualsName())
         {
-            base.ExitInteraction();
+            base.StartInteraction();
             interactable = true;
 
-            /* Toggle the shop by deactivating the gameObject */
-            shopUI.SetActive(!shopUI.activeSelf);
+            ToggleShop();
         }
-
     }
 
     /// <summary>
@@ -52,8 +50,16 @@ public class ShopNPC : NPCParent
             base.ExitInteraction();
             interactable = false;
 
-            /* Toggle the shop by deactivating the gameObject */
-            shopUI.SetActive(!shopUI.activeSelf);
+            ToggleShop();
         }
+    }
+
+    /// <summary>
+    /// Method to call to toggle ths shop active / inactive
+    /// Gets called upon player interaction with this object
+    /// </summary>
+    private void ToggleShop()
+    {
+        shopUI.SetActive(!shopUI.activeSelf);
     }
 }

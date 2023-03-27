@@ -26,6 +26,8 @@ public class NPCParent : MonoBehaviour
     /// </summary>
     public virtual void StartInteraction()
     {
+        Debug.Log("Now interacting with the " + npcName);
+
         transform.LookAt(LookAtTarget);
     }
 
