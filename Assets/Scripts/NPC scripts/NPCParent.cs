@@ -1,26 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPCParent : MonoBehaviour
 {
-    
     /* Reference to the player */
     public Transform player;
-    public void InteractWithNPC()
+
+    [HideInInspector]
+    public string npcName;
+
+    public virtual void StartInteraction()
     {
-        /* Make this NPC look at the player */
         transform.LookAt(player);
-        /* Call the OnInteraction method from the specific script of each NPC, depending on their tag */
-        if (gameObject.tag == "ShopNPC")
-        {
-            GetComponent<ShopNPC>().OnInteraction(); 
-        }else if (gameObject.tag == "GuideNPC")
-        {
-            GetComponent<GuideNPC>().OnInteraction();
-        } else if (gameObject.tag == "TalkingNPC")
-        {
-            GetComponent<TalkingNPC>().OnInteraction();
-        }
+    }
+
+    public virtual void ExitInteraction()
+    {
+      
+        
     }
 }

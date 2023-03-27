@@ -54,7 +54,8 @@ public class PlayerInteract : MonoBehaviour
         isInteracting = true;
 
         /* Call the interactwithNPC method that the player is interacting with */
-        npc.InteractWithNPC();
+        //npc.InteractWithNPC();
+        npc.StartInteraction();
 
         /* Set the locked bool to not locked */
         movementScript.locked = !movementScript.locked;
@@ -79,7 +80,7 @@ public class PlayerInteract : MonoBehaviour
     /// </summary>
     private void OnInteractionExit(NPCParent npc)
     {
-        npc.InteractWithNPC();
+        npc.ExitInteraction();
 
         /* Set the isInteracting bool to false to adjust the camera after interaction */
         isInteracting = false;
