@@ -11,9 +11,10 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     /* Get access to the movement of the player */
-    PlayerMovement2 movementScript;
+    private PlayerMovement2 movementScript;
 
     /* Made public to be accesible in CameraStateController script */
+    [HideInInspector]
     public bool isInteracting;
     public void Awake()
     {

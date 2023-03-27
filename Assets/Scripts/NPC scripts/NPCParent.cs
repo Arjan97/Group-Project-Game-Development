@@ -17,6 +17,9 @@ public class NPCParent : MonoBehaviour
     [HideInInspector]
     public bool interactable = false;
 
+    /* Bool to enable/disable text in the console upon interaction start/exit */
+    public bool ShowDebugText = true;
+
     /* Reference to where the NPC should look at, set in the inspector */
     public Transform LookAtTarget;
 
@@ -26,7 +29,7 @@ public class NPCParent : MonoBehaviour
     /// </summary>
     public virtual void StartInteraction()
     {
-        Debug.Log("Now interacting with the " + npcName);
+        if (ShowDebugText) Debug.Log("Now interacting with the " + npcName); 
 
         transform.LookAt(LookAtTarget);
     }
@@ -36,7 +39,7 @@ public class NPCParent : MonoBehaviour
     /// </summary>
     public virtual void ExitInteraction()
     {
-        Debug.Log("Exit interaction with the " + npcName);       
+       if (ShowDebugText) Debug.Log("Exit interaction with the " + npcName);
     }
 
     /// <summary>
@@ -62,6 +65,7 @@ public class NPCParent : MonoBehaviour
         if (gameObject.tag != npcName)
         {
             return false;
-        } else { return true; }
+        }
+        else { return true; }
     }
 }
