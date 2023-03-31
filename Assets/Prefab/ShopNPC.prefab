@@ -110,7 +110,6 @@ GameObject:
   - component: {fileID: 8059729902450838847}
   - component: {fileID: 8059729902450838844}
   - component: {fileID: 8059729902450838832}
-  - component: {fileID: 8059729902450838845}
   - component: {fileID: 8059729902450838835}
   m_Layer: 0
   m_Name: ShopNPC
@@ -215,19 +214,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &8059729902450838845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8059729902450838842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d6151cd4152d784e8b4b453157b47ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!114 &8059729902450838835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,4 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4c63378d9f83643b44d00cd72fb453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcName: 
+  interactable: 0
+  ShowDebugText: 1
+  LookAtTarget: {fileID: 0}
   shopUI: {fileID: 0}
