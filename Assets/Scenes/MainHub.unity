@@ -3106,11 +3106,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e21b6c9b113d50a4b865c5a99ce0a58e, type: 3}
   m_PrefabInstance: {fileID: 523685578}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &531634385 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7343724549382010293, guid: d58bbeb2eab98a34d9d7535f581afedb, type: 3}
-  m_PrefabInstance: {fileID: 359091415}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &540060323
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,6 +4731,8 @@ MonoBehaviour:
   shopUI: {fileID: 540060323}
   shopContent: {fileID: 649233693}
   itemPrefab: {fileID: 7490876896795731384, guid: ab21066e211dfd644b164e03cc47911f, type: 3}
+  playerHealth: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!4 &710615637
 Transform:
   m_ObjectHideFlags: 0
@@ -5607,7 +5604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5623,7 +5620,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -7663,7 +7660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1357184413}
-  cameraHead: {fileID: 531634385}
   force: 0
   sensitivity: 0.1
   locked: 1
@@ -7679,6 +7675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d637671dd742d9147af9aa1b46e4d621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteracting: 0
 --- !u!114 &1357184419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7691,6 +7688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8df83ba67d650c47abe85743fe535af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
   takeDamage: 10
   respawnPoint: {fileID: 0}
   healthBar: {fileID: 687769908}

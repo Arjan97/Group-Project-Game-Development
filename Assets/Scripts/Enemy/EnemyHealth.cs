@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
     //UI
     public Slider slider;
     public GameObject healthBarUI;
+
     void Start()
     {
         currentHealth = maxHealth;

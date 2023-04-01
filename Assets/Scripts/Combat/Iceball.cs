@@ -10,7 +10,7 @@ public class Iceball : MonoBehaviour
     public float iceballSpeed = 10f;
     public float iceballCooldownTime = 3f;
 
-    private bool canShoot = true;
+    public bool canShoot = true;
     private float iceballCooldownTimer;
     private TextMeshProUGUI cooldownText;
 
@@ -22,13 +22,6 @@ public class Iceball : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && canShoot)
-        {
-            FireIceball();
-            canShoot = false;
-            iceballCooldownTimer = iceballCooldownTime;
-        }
-
         if (!canShoot)
         {
             iceballCooldownTimer -= Time.deltaTime;
@@ -42,11 +35,13 @@ public class Iceball : MonoBehaviour
         }
     }
 
-    void FireIceball()
+    public void FireIceball()
     {
         GameObject iceball = Instantiate(iceballPrefab, iceballSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = iceball.GetComponent<Rigidbody>();
         rb.velocity = transform.forward * iceballSpeed;
         Destroy(iceball, 5f);
+        iceballCooldownTimer = iceballCooldownTime;
+        canShoot = false;
     }
 }
