@@ -19,10 +19,6 @@ public class PlayerMovement2 : MonoBehaviour
     private bool sprinting;
     public bool locked = true;
 
-
-
-
-
     private void Awake()
     {
         inputMaster = new InputMaster();
