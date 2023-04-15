@@ -58053,6 +58053,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8839209022588533527, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839209022588533527, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8839209022651705063, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -58060,6 +58068,14 @@ PrefabInstance:
     - target: {fileID: 8839209022651705063, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839209023282707349, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839209023282707349, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8839209023848724845, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
       propertyPath: player
@@ -58069,5 +58085,13 @@ PrefabInstance:
       propertyPath: abilityManager
       value: 
       objectReference: {fileID: 370115668}
+    - target: {fileID: 8839209023935937660, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839209023935937660, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d390c9236ad70fd4d967df617a7270c7, type: 3}

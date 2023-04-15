@@ -97,11 +97,11 @@ public class AbilityUpgradeUI : MonoBehaviour
 
     private void UpdateGroundSlamUpgradeText()
     {
-        groundSlamDamageText.text = "Damage: " + abilityManager.groundSlamDamage +
+        groundSlamDamageText.text = "Groundslam Damage: " + abilityManager.groundSlamDamage +
                                     " (Lv. " + abilityManager.groundSlamDamageLevel + ")";
-        groundSlamRadiusText.text = "Radius: " + abilityManager.groundSlamRadius +
+        groundSlamRadiusText.text = "Groundslam Radius: " + abilityManager.groundSlamRadius +
                                     " (Lv. " + abilityManager.groundSlamRadiusLevel + ")";
-        groundSlamCooldownText.text = "Cooldown: " + abilityManager.groundSlamCooldown +
+        groundSlamCooldownText.text = "Groundslam Cooldown: " + abilityManager.groundSlamCooldown +
                                        "s (Lv. " + abilityManager.groundSlamCooldownLevel + ")";
     }
 }
