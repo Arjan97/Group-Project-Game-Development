@@ -12,13 +12,18 @@ public class PlayerInteract : MonoBehaviour
 {
     /* Get access to the movement of the player */
     private PlayerMovement2 movementScript;
-
+    private Fireball fireballScript;
+    private Iceball iceballScript;
+    private GroundSlam groundSlamScript;
     /* Made public to be accesible in CameraStateController script */
     [HideInInspector]
     public bool isInteracting;
     public void Awake()
     {
-        movementScript = GetComponent<PlayerMovement2>();
+        movementScript = GetComponent<PlayerMovement2>(); 
+        fireballScript = GetComponent<Fireball>();
+        iceballScript = GetComponent<Iceball>();
+        groundSlamScript = GetComponent<GroundSlam>();
     }
     void Update()
     {
@@ -88,7 +93,7 @@ public class PlayerInteract : MonoBehaviour
     /// Method that disables the movement and rotation of the player
     /// Gets called when interacting with a NPC
     /// </summary>
-    private void DisablePlayerActions()
+    public void DisablePlayerActions()
     {
         /* Set the locked bool to not locked */
         movementScript.locked = !movementScript.locked;
@@ -104,18 +109,28 @@ public class PlayerInteract : MonoBehaviour
 
         /* Disable the movement script to stop the player from moving and rotating while interacting */
         movementScript.enabled = false;
+
+        /* Disable the fireball, iceball, and groundslam scripts to stop the player from using them while interacting */
+        fireballScript.enabled = false;
+        iceballScript.enabled = false;
+        groundSlamScript.enabled = false;
     }
 
     /// <summary>
     /// Method that enables the movement and rotation of the player after it has been disabled
     /// Gets called when exiting a interaction with a NPC
     /// </summary>
-    private void EnablePlayerActions()
+    public void EnablePlayerActions()
     {
         /* Lock the mouse cursor again */
         movementScript.locked = true;
 
         /* Enable the movement script after interacting to let the player move and rotate again */
         movementScript.enabled = true;
+
+        /* Enable the fireball, iceball, and groundslam scripts after interacting to let the player use them again */
+        fireballScript.enabled = true;
+        iceballScript.enabled = true;
+        groundSlamScript.enabled = true;
     }
 }
