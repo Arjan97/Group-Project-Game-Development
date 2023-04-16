@@ -20,7 +20,7 @@ public class Fireball : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && abilityManager.CanUseAbility())
+        if (Input.GetMouseButtonDown(0) && abilityManager.CanUseAbility("Fireball"))
         {
             FireFireball();
             abilityManager.StartAbilityCooldown(fireballCooldownTime);

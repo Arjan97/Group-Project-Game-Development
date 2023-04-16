@@ -10,6 +10,9 @@ public class AbilityManager : MonoBehaviour
     // General cooldown timer
     public TextMeshProUGUI cooldownText;
     private float abilityCooldownTimer = 0f;
+    //Dictionaries
+    private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool>();
+
     // Groundslam ability
     public int groundSlamDamageLevel { get; set; }
     public int groundSlamRadiusLevel { get; set; }
@@ -36,7 +39,13 @@ public class AbilityManager : MonoBehaviour
     }
     void Start()
     {
+        //Ability unlockstate
+        unlockedAbilities.Add("GroundSlam", false);
+        unlockedAbilities.Add("Iceball", false);
+        unlockedAbilities.Add("Fireball", false);
+
         // Initialize default values
+        //groundslam
         groundSlamDamageLevel = 1;
         groundSlamRadiusLevel = 1;
         groundSlamCooldownLevel = 1;
@@ -48,6 +57,11 @@ public class AbilityManager : MonoBehaviour
 
     void Update()
     {
+        CoolDown();
+    }
+
+    public void CoolDown()
+    {
         //Cooldowntimer
         if (abilityCooldownTimer > 0)
         {
@@ -58,13 +72,39 @@ public class AbilityManager : MonoBehaviour
         {
             cooldownText.text = "";
         }
-
     }
 
-    //Cooldowntimer 
-    public bool CanUseAbility()
+    public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f;
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName];
+    }
+    public bool IsAbilityUnlocked(string abilityName)
+    {
+        bool isUnlocked;
+        if (unlockedAbilities.TryGetValue(abilityName, out isUnlocked))
+        {
+            return isUnlocked;
+        }
+        return false; // if the ability name is not found in the dictionary, assume it's not unlocked
+    }
+    public void UnlockAbility(string abilityName, int cost)
+    {
+        if (unlockedAbilities.ContainsKey(abilityName))
+        {
+            if (CanAfford(cost))
+            {
+                SpendPoints(cost);
+                unlockedAbilities[abilityName] = true;
+            }
+            else
+            {
+                Debug.LogWarning("Insufficient points to unlock ability: " + abilityName);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Attempted to unlock unknown ability: " + abilityName);
+        }
     }
     //Cooldowntimer 
     public void StartAbilityCooldown(float cooldownTime)
@@ -72,8 +112,6 @@ public class AbilityManager : MonoBehaviour
         abilityCooldownTimer = cooldownTime;
         cooldownText.text = "Cooldown: " + abilityCooldownTimer.ToString("F1") + "s";
     }
-
-    //Groundslam ability upgrades
     public bool CanAfford(int cost)
     {
         return upgradePoints >= cost;
@@ -83,6 +121,8 @@ public class AbilityManager : MonoBehaviour
     {
         upgradePoints -= cost;
     }
+
+    //Groundslam ability upgrades
 
     public void UpgradeGroundSlamDamage(float amount)
     {

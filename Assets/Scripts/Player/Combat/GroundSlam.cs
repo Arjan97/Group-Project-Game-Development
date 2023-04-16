@@ -17,7 +17,7 @@ public class GroundSlam : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && abilityManager.CanUseAbility())
+        if (Input.GetKeyDown(KeyCode.Space) && abilityManager.CanUseAbility("GroundSlam"))
         {
             abilityManager.StartAbilityCooldown(groundslamCooldownTime);
             GroundSlammer();

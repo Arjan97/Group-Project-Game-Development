@@ -20,7 +20,7 @@ public class Iceball : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && abilityManager.CanUseAbility())
+        if (Input.GetMouseButtonDown(1) && abilityManager.CanUseAbility("Iceball"))
         {
             FireIceball();
             abilityManager.StartAbilityCooldown(iceballCooldownTime);

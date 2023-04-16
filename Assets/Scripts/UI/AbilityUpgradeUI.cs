@@ -11,6 +11,8 @@ public class AbilityUpgradeUI : MonoBehaviour
     private bool isOpen = false; //temp.
 
     [Header("Ground Slam Upgrade")]
+    [SerializeField] private GameObject groundSlamUnlockButton;
+    [SerializeField] private TextMeshProUGUI groundSlamUnlockText;
     [SerializeField] private GameObject groundSlamUpgradePanel;
     [SerializeField] private TextMeshProUGUI groundSlamDamageText;
     [SerializeField] private TextMeshProUGUI groundSlamRadiusText;
@@ -23,10 +25,10 @@ public class AbilityUpgradeUI : MonoBehaviour
 
     private void Update()
     {
+        UpdateGroundSlamUpgradeText();
+        UpdateUpgradePointsText();
         if (Input.GetKeyDown(KeyCode.F) && !isOpen)
         {
-            UpdateGroundSlamUpgradeText();
-            UpdateUpgradePointsText();
             ShowUpgradePanel();
             isOpen= true;
             player.GetComponent<PlayerInteract>().isInteracting = true;
@@ -50,7 +52,11 @@ public class AbilityUpgradeUI : MonoBehaviour
     {
         upgradePanel.SetActive(false);
     }
-
+    public void UnlockGroundSlam()
+    {
+      abilityManager.UnlockAbility("GroundSlam", 20);
+      groundSlamUnlockButton.SetActive(false);
+    }
     public void UpgradeGroundSlamDamage()
     {
         int cost = abilityManager.groundSlamDamageLevel * 10 + 10;
@@ -97,11 +103,24 @@ public class AbilityUpgradeUI : MonoBehaviour
 
     private void UpdateGroundSlamUpgradeText()
     {
-        groundSlamDamageText.text = "Groundslam Damage: " + abilityManager.groundSlamDamage +
-                                    " (Lv. " + abilityManager.groundSlamDamageLevel + ")";
-        groundSlamRadiusText.text = "Groundslam Radius: " + abilityManager.groundSlamRadius +
-                                    " (Lv. " + abilityManager.groundSlamRadiusLevel + ")";
-        groundSlamCooldownText.text = "Groundslam Cooldown: " + abilityManager.groundSlamCooldown +
-                                       "s (Lv. " + abilityManager.groundSlamCooldownLevel + ")";
+        if (!abilityManager.IsAbilityUnlocked("GroundSlam"))
+        {
+            // If the ability is not unlocked, disable the upgrade panel and the button
+            groundSlamUnlockButton.SetActive(true);
+            groundSlamUpgradePanel.SetActive(false);
+            groundSlamUnlockText.text = "Unlock GroundSlam: 10SP";
+        }
+        else
+        {
+            // If the ability is unlocked, enable the upgrade panel and the texts, and disable the button
+            groundSlamDamageText.text = "Groundslam Damage: " + abilityManager.groundSlamDamage +
+                                        " (Lv. " + abilityManager.groundSlamDamageLevel + ")";
+            groundSlamRadiusText.text = "Groundslam Radius: " + abilityManager.groundSlamRadius +
+                                        " (Lv. " + abilityManager.groundSlamRadiusLevel + ")";
+            groundSlamCooldownText.text = "Groundslam Cooldown: " + abilityManager.groundSlamCooldown +
+                                           "s (Lv. " + abilityManager.groundSlamCooldownLevel + ")";
+            groundSlamUpgradePanel.SetActive(true);
+            groundSlamUnlockButton.SetActive(false);
+        }
     }
 }
