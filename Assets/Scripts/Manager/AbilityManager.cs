@@ -12,6 +12,11 @@ public class AbilityManager : MonoBehaviour
     private float abilityCooldownTimer = 0f;
     //Dictionaries
     private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool>();
+    // Ability trees
+    public AbilityTree groundTree;
+    public AbilityTree iceTree;
+    public AbilityTree fireTree;
+    public AbilityTree playerAbilityTree;
 
     // Groundslam ability
     public int groundSlamDamageLevel { get; set; }
@@ -24,7 +29,7 @@ public class AbilityManager : MonoBehaviour
     public int upgradePoints = 100;
 
     // UI
-    public AbilityUpgradeUI abilityUpgradeUI;
+    public AbilityUI abilityUpgradeUI;
     void Awake()
     {
         if (instance == null)
@@ -45,7 +50,8 @@ public class AbilityManager : MonoBehaviour
         unlockedAbilities.Add("Fireball", false);
 
         // Initialize default values
-        //groundslam
+        playerAbilityTree = groundTree;
+
         groundSlamDamageLevel = 1;
         groundSlamRadiusLevel = 1;
         groundSlamCooldownLevel = 1;
@@ -53,11 +59,22 @@ public class AbilityManager : MonoBehaviour
         groundSlamDamage = 30f;
         groundSlamRadius = 2f;
         groundSlamCooldown = 4f;
+
+        // Create ability trees and add abilities
+        groundTree = new AbilityTree("Ground");
+        groundTree.AddAbility("GroundSlam");
+
+        iceTree = new AbilityTree("Ice");
+        iceTree.AddAbility("Iceball");
+
+        fireTree = new AbilityTree("Fire");
+        fireTree.AddAbility("Fireball");
     }
 
     void Update()
     {
         CoolDown();
+        playerAbilityTree = GetActiveTree();
     }
 
     public void CoolDown()
@@ -73,10 +90,18 @@ public class AbilityManager : MonoBehaviour
             cooldownText.text = "";
         }
     }
+    public void SetActiveAbilityTree(AbilityTree abilityTree)
+    {
+        playerAbilityTree = abilityTree;
+    }
 
+    public AbilityTree GetActiveTree()
+    {
+        return playerAbilityTree;
+    }
     public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName];
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName);
     }
     public bool IsAbilityUnlocked(string abilityName)
     {
