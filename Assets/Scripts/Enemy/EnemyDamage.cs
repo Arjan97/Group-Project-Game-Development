@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    public int damageAmount;
-    // Start is called before the first frame update
-    void Start()
-    {
-        damageAmount = 50;
-    }
+    public int damageAmount = 20;
 
     private void OnCollisionEnter(Collision collision)
     {

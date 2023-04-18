@@ -9,6 +9,8 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradePointsText;
     public GameObject player; //for disabling mov and setting camera angle
     private bool isOpen = false; //temp.
+    GameObject activePanel = null;
+
     //ability trees
     public TMP_Dropdown dropdown;
     private AbilityTree fireTree;
@@ -23,7 +25,7 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI groundSlamDamageText;
     [SerializeField] private TextMeshProUGUI groundSlamRadiusText;
     [SerializeField] private TextMeshProUGUI groundSlamCooldownText;
-
+    [SerializeField] private GameObject groundPoundUnlockButton;
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
     [SerializeField] private GameObject fireballUnlockButton;
@@ -49,25 +51,11 @@ public class AbilityUI : MonoBehaviour
     {
         UpdateGroundSlamUpgradeText();
         UpdateUpgradePointsText();
-        if (abilityManager.GetActiveTree().treeName == "Ground" && isOpen)
-        {
-            groundPanel.SetActive(true);
-            icePanel.SetActive(false);
-            firePanel.SetActive(false);
-        }
-        else if (abilityManager.GetActiveTree().treeName == "Ice" && isOpen)
-        {
-            groundPanel.SetActive(false);
-            icePanel.SetActive(true);
-            firePanel.SetActive(false);
-        }
-        else if (abilityManager.GetActiveTree().treeName == "Fire" && isOpen)
-        {
-            groundPanel.SetActive(false);
-            icePanel.SetActive(false);
-            firePanel.SetActive(true);
-        }
-
+        SwitchTreePanel();
+        OpenTree();
+    }
+    public void OpenTree()
+    {
         if (Input.GetKeyDown(KeyCode.F) && !isOpen)
         {
             ShowUpgradePanel();
@@ -107,6 +95,29 @@ public class AbilityUI : MonoBehaviour
                 break;
         }
     }
+
+    public void SwitchTreePanel()
+    {
+        switch (abilityManager.GetActiveTree().treeName)
+        {
+            case "Ground":
+                activePanel = groundPanel;
+                break;
+            case "Ice":
+                activePanel = icePanel;
+                break;
+            case "Fire":
+                activePanel = firePanel;
+                break;
+        }
+
+        if (activePanel != null && isOpen)
+        {
+            groundPanel.SetActive(activePanel == groundPanel);
+            icePanel.SetActive(activePanel == icePanel);
+            firePanel.SetActive(activePanel == firePanel);
+        }
+    }
     public void ShowUpgradePanel()
     {
         upgradePanel.SetActive(true);
@@ -122,6 +133,12 @@ public class AbilityUI : MonoBehaviour
     {
       abilityManager.UnlockAbility("GroundSlam", 0);
       groundSlamUnlockButton.SetActive(false);
+    }
+    public void UnlockGroundPound()
+    {
+        Debug.Log("Groundpound unlocked");
+        abilityManager.UnlockAbility("GroundPound", 0);
+        groundSlamUnlockButton.SetActive(false);
     }
     public void UnlockFireball()
     {

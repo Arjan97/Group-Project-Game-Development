@@ -10,8 +10,13 @@ public class AbilityManager : MonoBehaviour
     // General cooldown timer
     public TextMeshProUGUI cooldownText;
     private float abilityCooldownTimer = 0f;
+    public int upgradePoints = 100;
     //Dictionaries
-    private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool>();
+    private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool> {
+    { "GroundSlam", false },
+    {"GroundPound", false },
+    { "Iceball", false },
+    { "Fireball", false }};
     // Ability trees
     public AbilityTree groundTree;
     public AbilityTree iceTree;
@@ -26,7 +31,16 @@ public class AbilityManager : MonoBehaviour
     public float groundSlamRadius { get; private set; }
     public float groundSlamCooldown { get; private set; }
 
-    public int upgradePoints = 100;
+    //GroundPound abil
+    public int groundPoundDamageLevel { get; set; }
+    public int groundPoundRadiusLevel { get; set; }
+    public int groundPoundCooldownLevel { get; set; }
+    public int groundPoundTrembleDurationLevel { get; set; }
+    public float groundPoundDamage { get; private set; }
+    public float groundPoundRadius { get; private set; }
+    public float groundPoundCooldown { get; private set; }
+    public int groundPoundTrembleDuration { get; private set; }
+    public float groundPoundTrembleMagnitude { get; private set; }
 
     // UI
     public AbilityUI abilityUpgradeUI;
@@ -44,11 +58,6 @@ public class AbilityManager : MonoBehaviour
     }
     void Start()
     {
-        //Ability unlockstate
-        unlockedAbilities.Add("GroundSlam", false);
-        unlockedAbilities.Add("Iceball", false);
-        unlockedAbilities.Add("Fireball", false);
-
         // Initialize default values
         playerAbilityTree = groundTree;
 
@@ -59,6 +68,14 @@ public class AbilityManager : MonoBehaviour
         groundSlamDamage = 30f;
         groundSlamRadius = 2f;
         groundSlamCooldown = 4f;
+
+        groundPoundCooldownLevel= 1;
+        groundPoundDamageLevel= 1;
+        groundPoundRadiusLevel= 1;
+
+        groundPoundDamage= 10f;
+        groundPoundRadius= 1;
+        groundPoundCooldown = 8f;
 
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
@@ -75,6 +92,7 @@ public class AbilityManager : MonoBehaviour
     {
         CoolDown();
         playerAbilityTree = GetActiveTree();
+
     }
 
     public void CoolDown()
@@ -177,5 +195,31 @@ public class AbilityManager : MonoBehaviour
     public float GetGroundSlamCooldown()
     {
         return groundSlamCooldown;
+    }
+
+    //groundpound 
+    public float GetGroundPoundDamage()
+    {
+        return groundPoundDamage;
+    }
+
+    public float GetGroundPoundRadius()
+    {
+        return groundPoundRadius;
+    }
+
+    public float GetGroundPoundCooldown()
+    {
+        return groundPoundCooldown;
+    }
+
+    public int GetGroundPoundTrembleDuration()
+    {
+        return groundPoundTrembleDuration;
+    }
+
+    public float GetGroundPoundTrembleMagnitude()
+    {
+        return groundPoundTrembleMagnitude;
     }
 }

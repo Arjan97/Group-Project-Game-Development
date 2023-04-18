@@ -31,4 +31,22 @@ public class EnemyMovement : MonoBehaviour
             transform.LookAt(player);
         }
     }
+    public void ApplyTrembleEffect(float trembleDuration, float trembleMagnitude)
+    {
+        StartCoroutine(TrembleEffect(trembleDuration, trembleMagnitude));
+    }
+    private IEnumerator TrembleEffect(float trembleDuration, float trembleMagnitude)
+    {
+        // Store the initial movement speed
+        float originalSpeed = speed;
+
+        // Apply the tremble effect by halving the movement speed
+        speed *= 0.5f;
+
+        // Wait for the tremble duration
+        yield return new WaitForSeconds(trembleDuration);
+
+        // Reset the movement speed back to its original value
+        speed = originalSpeed;
+    }
 }

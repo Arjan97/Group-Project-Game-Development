@@ -11,9 +11,7 @@ public class HealthPickup : MonoBehaviour
 
     private void Awake()
     {
-        //Debug.Log("current health = " + PlayerHealth.currentHealth);
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        Debug.Log(playerHealth);
     }
 
     private void Update()
@@ -28,10 +26,8 @@ public class HealthPickup : MonoBehaviour
             if (playerHealth.currentHealth < 100)
             {
                 Destroy(gameObject);
-                //PlayerHealth.currentHealth = PlayerHealth.currentHealth + healthGain;
                 playerHealth.GainHealth(25);
                 Debug.Log("Gained " + healthGain + " health");
-                //Debug.Log("total health = " + PlayerHealth.currentHealth);
             }
         }
     }
