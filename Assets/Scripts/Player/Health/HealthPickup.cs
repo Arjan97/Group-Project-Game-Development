@@ -13,7 +13,6 @@ public class HealthPickup : MonoBehaviour
     {
         //Debug.Log("current health = " + PlayerHealth.currentHealth);
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        Debug.Log(playerHealth);
     }
 
     private void Update()

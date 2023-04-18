@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AImovement : MonoBehaviour
+public class AIMoveRandom : MonoBehaviour
 {
     /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
