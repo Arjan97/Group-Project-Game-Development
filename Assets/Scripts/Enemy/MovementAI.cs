@@ -13,6 +13,8 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MovementAI : MonoBehaviour
 {
+    public MeshRenderer terrain;
+
     /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
 
@@ -26,8 +28,13 @@ public class MovementAI : MonoBehaviour
     /* The length of the path of the agent before getting a new path */
     [SerializeField] private float pathLength = 10f;
 
+    /* Float to store the new angle for a new direction, calculated randomly between angleMin and angleMax */
+    private float randomDegrees;
+
     /* When the agent is within this range of its destination, it gets a new destination */
     private float arrivingRange = 5;
+
+    private bool nearEdge = false;
 
     void Start()
     {
@@ -40,7 +47,9 @@ public class MovementAI : MonoBehaviour
 
     void Update()
     {
-        /* Draw a ray in the forward moving direction */ 
+        CheckEdgeCollision();
+
+        /* Draw a ray in the forward moving direction */
         Debug.DrawLine(transform.position + new Vector3(0, 1), transform.forward, color: Color.blue);
 
         /* Check if the agent is within arrivingRange of its target */
@@ -48,6 +57,30 @@ public class MovementAI : MonoBehaviour
         {
             /* Call method to get a new destination upon reaching its destination */
             NewDestination();
+        }
+    }
+
+    private void CheckEdgeCollision()
+    {
+        //if forward ray hits a wall, and the distance < x then rotate the gamobject and call newDestination
+        //If the object is near bounds, rotate object and call new destination
+
+        //Edge: 
+        float px = transform.position.x;
+        float pz = transform.position.z;
+
+        float xMin = terrain.bounds.min.x;
+        float xMax = terrain.bounds.max.x;
+
+        float zMin = terrain.bounds.min.z;
+        float zMax = terrain.bounds.max.z;
+
+
+        if (px < xMin +1 || px > xMax - 1 || pz < zMin +1 || pz > zMax - 1)
+        {
+            Debug.Log("Near edge ");
+
+            nearEdge = true;
         }
     }
 
@@ -104,7 +137,7 @@ public class MovementAI : MonoBehaviour
     private Ray GetRay()
     {
         /* Get a random value between given floats to determine a new angle */
-        float randomDegrees = Random.Range(angleMin, angleMax);
+        randomDegrees = Random.Range(angleMin, angleMax);
 
         /* Get the forward direction of the gameobject */
         Vector3 forwardDirection = transform.forward;
