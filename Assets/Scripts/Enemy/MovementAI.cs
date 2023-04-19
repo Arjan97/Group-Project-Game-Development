@@ -1,4 +1,3 @@
-//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -8,10 +7,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class TestAI : MonoBehaviour
+/// <summary>
+/// Class for AI movement of a GameObject
+/// Moves an object to a location within a random radius of the direction it is facing
+/// </summary>
+public class MovementAI : MonoBehaviour
 {
+    /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
 
+    /* Variable of type Vector3 that this agent will move towards */
     private Vector3 targetVector;
 
     /* Minimum and maximum values that will determine the new direction to move to */
