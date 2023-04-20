@@ -55,6 +55,10 @@ public class AbilityUI : MonoBehaviour
         icePanel.SetActive(false);
         firePanel.SetActive(false);
 
+        groundPoundSelectButton.SetActive(false);
+        groundSlamSelectButton.SetActive(false);
+        shockSlamSelectButton.SetActive(false);
+
         fireTree = abilityManager.fireTree;
         iceTree = abilityManager.iceTree;
         groundTree = abilityManager.groundTree;
@@ -147,16 +151,19 @@ public class AbilityUI : MonoBehaviour
         abilityManager.UnlockAbility("GroundSlam", 0);
         abilityManager.SelectAbility("GroundSlam");
         groundSlamUnlockButton.SetActive(false);
+        //groundSlamSelectButton.SetActive(true);
     }
     public void UnlockShockSlam()
     {
         abilityManager.UnlockAbility("ShockSlam", 60);
         shockSlamUnlockButton.SetActive(false);
+        shockSlamSelectButton.SetActive(true);
     }
     public void UnlockGroundPound()
     {
         abilityManager.UnlockAbility("GroundPound", 30);
         groundPoundUnlockButton.SetActive(false);
+        groundPoundSelectButton.SetActive(true);
     }
     public void UnlockFireball()
     {
