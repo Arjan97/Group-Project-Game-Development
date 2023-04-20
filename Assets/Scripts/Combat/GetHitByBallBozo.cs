@@ -5,13 +5,13 @@ using UnityEngine;
 public class GetHitByBallBozo : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int maxHealth = 100;
-    public int currentHealth = 10;
-    public int takeDamage = 10;
+    private int maxHealth = 100;
+    private int currentHealth;
+    private int takeDamage = 10;
 
     public void Start()
     {
-        
+        currentHealth = maxHealth;
     }
     private void Update()
     {

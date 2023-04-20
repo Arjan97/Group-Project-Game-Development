@@ -6,7 +6,7 @@ public class SuperEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
     private int FireBallTime = 0;
-    private int FireBallCounter = 10;
+    private int FireBallCounter = 20;
 
     public Fireball fireball;
 

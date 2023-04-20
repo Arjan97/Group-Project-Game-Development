@@ -34,6 +34,11 @@ public class Fireball : MonoBehaviour
                 cooldownText.text = "";
             }
         }
+
+        if(Vector3.Distance(transform.position, fireballSpawnPoint.position) >= 5)
+        {
+            Destroy(fireballPrefab);
+        }
     }
 
     public void FireFireball()

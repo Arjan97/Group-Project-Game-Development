@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Subtract the damage from the player's health
-        //currentHealth -= damage;
+        currentHealth -= damage;
         Debug.Log("Player taking damage!");
 
         // Check if the player is dead
