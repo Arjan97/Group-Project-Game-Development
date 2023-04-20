@@ -16,6 +16,8 @@ public class AbilityUI : MonoBehaviour
     private AbilityTree fireTree;
     private AbilityTree iceTree;
     private AbilityTree groundTree;
+    //abil zone
+    private AbilityTreeZoneController abilityZone;
     //abilities
     [Header("Ground Tree")]
     [SerializeField] private GameObject groundPanel;
@@ -37,6 +39,9 @@ public class AbilityUI : MonoBehaviour
 
     private void Start()
     {
+        GameObject abilityZoneObject = GameObject.FindGameObjectWithTag("AbilityZone");
+        abilityZone = abilityZoneObject.GetComponent<AbilityTreeZoneController>();
+
         upgradePanel.SetActive(false);
         groundPanel.SetActive(false);
         icePanel.SetActive(false);
@@ -45,7 +50,6 @@ public class AbilityUI : MonoBehaviour
         fireTree = abilityManager.fireTree;
         iceTree = abilityManager.iceTree;
         groundTree = abilityManager.groundTree;
-
     }
 
     private void Update()
@@ -57,7 +61,7 @@ public class AbilityUI : MonoBehaviour
     }
     public void OpenTree()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.F) && !isOpen && abilityZone.canAccessAbilityTrees)
         {
             ShowUpgradePanel();
             isOpen = true;
