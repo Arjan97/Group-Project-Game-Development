@@ -23,7 +23,9 @@ public class AbilityManager : MonoBehaviour
     public AbilityTree iceTree;
     public AbilityTree fireTree;
     public AbilityTree playerAbilityTree;
-
+    // Ability selection
+    public List<string> selectedAbilities = new List<string>();
+    public int maxSelectedAbilities = 2;
     // Groundslam ability
     public int groundSlamDamageLevel { get; set; }
     public int groundSlamRadiusLevel { get; set; }
@@ -141,7 +143,7 @@ public class AbilityManager : MonoBehaviour
     }
     public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName);
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) && selectedAbilities.Contains(abilityName);
     }
     public bool IsAbilityUnlocked(string abilityName)
     {
@@ -187,6 +189,26 @@ public class AbilityManager : MonoBehaviour
     public void SpendPoints(int cost)
     {
         upgradePoints -= cost;
+    }
+    public void SelectAbility(string abilityName)
+    {
+        if (!selectedAbilities.Contains(abilityName))
+        {
+            if (selectedAbilities.Count < maxSelectedAbilities)
+            {
+                selectedAbilities.Add(abilityName);
+                Debug.Log("Selected ability: " + abilityName);
+            }
+            else
+            {
+                Debug.Log("Cannot select more than " + maxSelectedAbilities + " abilities");
+            }
+        }
+        else
+        {
+            selectedAbilities.Remove(abilityName);
+            Debug.Log("Deselected ability: " + abilityName);
+        }
     }
 
     //Groundslam ability upgrades

@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Fireball
   - Iceball
+  - AbilityZone
   layers:
   - Default
   - TransparentFX

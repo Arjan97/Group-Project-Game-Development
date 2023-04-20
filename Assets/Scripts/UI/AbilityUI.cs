@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public class AbilityUI : MonoBehaviour
 {
     [SerializeField] private AbilityManager abilityManager;
@@ -21,14 +23,20 @@ public class AbilityUI : MonoBehaviour
     //abilities
     [Header("Ground Tree")]
     [SerializeField] private GameObject groundPanel;
+    //groundslam
     [SerializeField] private GameObject groundSlamUnlockButton;
+    [SerializeField] private GameObject groundSlamSelectButton;
     [SerializeField] private TextMeshProUGUI groundSlamUnlockText;
     [SerializeField] private GameObject groundSlamUpgradePanel;
     [SerializeField] private TextMeshProUGUI groundSlamDamageText;
     [SerializeField] private TextMeshProUGUI groundSlamRadiusText;
     [SerializeField] private TextMeshProUGUI groundSlamCooldownText;
+    //groundpound
     [SerializeField] private GameObject groundPoundUnlockButton;
+    [SerializeField] private GameObject groundPoundSelectButton;
+    //shockslam
     [SerializeField] private GameObject shockSlamUnlockButton;
+    [SerializeField] private GameObject shockSlamSelectButton;
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
     [SerializeField] private GameObject fireballUnlockButton;
@@ -133,11 +141,12 @@ public class AbilityUI : MonoBehaviour
         upgradePanel.SetActive(false);
     }
 
-    //Unluck abilities
+    //Unlock abilities
     public void UnlockGroundSlam()
     {
-      abilityManager.UnlockAbility("GroundSlam", 0);
-      groundSlamUnlockButton.SetActive(false);
+        abilityManager.UnlockAbility("GroundSlam", 0);
+        abilityManager.SelectAbility("GroundSlam");
+        groundSlamUnlockButton.SetActive(false);
     }
     public void UnlockShockSlam()
     {
@@ -159,6 +168,57 @@ public class AbilityUI : MonoBehaviour
         abilityManager.UnlockAbility("Iceball", 0);
         iceballUnlockButton.SetActive(false);
     }
+    //select abils
+    public void SelectGroundSlam()
+    {
+        abilityManager.SelectAbility("GroundSlam");
+        if (abilityManager.selectedAbilities.Contains("GroundSlam"))
+        {
+            ColorBlock colors = groundSlamSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.green;
+            groundSlamSelectButton.GetComponent<Button>().colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = groundSlamSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.red;
+            groundSlamSelectButton.GetComponent<Button>().colors = colors;
+        }
+    }
+    public void SelectShockSlam()
+    {
+        abilityManager.SelectAbility("ShockSlam");
+        if (abilityManager.selectedAbilities.Contains("ShockSlam"))
+        {
+            ColorBlock colors = shockSlamSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.green;
+            shockSlamSelectButton.GetComponent<Button>().colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = shockSlamSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.red;
+            shockSlamSelectButton.GetComponent<Button>().colors = colors;
+        }
+    }
+    public void SelectGroundPound()
+    {
+        abilityManager.SelectAbility("GroundPound");
+        if (abilityManager.selectedAbilities.Contains("GroundPound"))
+        {
+            ColorBlock colors = groundPoundSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.green;
+            groundPoundSelectButton.GetComponent<Button>().colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = groundPoundSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.red;
+            groundPoundSelectButton.GetComponent<Button>().colors = colors;
+        }
+    }
+
+    //upgrade abils
     public void UpgradeGroundSlamDamage()
     {
         int cost = abilityManager.groundSlamDamageLevel * 10 + 10;
