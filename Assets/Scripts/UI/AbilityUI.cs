@@ -26,6 +26,7 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI groundSlamRadiusText;
     [SerializeField] private TextMeshProUGUI groundSlamCooldownText;
     [SerializeField] private GameObject groundPoundUnlockButton;
+    [SerializeField] private GameObject shockSlamUnlockButton;
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
     [SerializeField] private GameObject fireballUnlockButton;
@@ -134,9 +135,14 @@ public class AbilityUI : MonoBehaviour
       abilityManager.UnlockAbility("GroundSlam", 0);
       groundSlamUnlockButton.SetActive(false);
     }
+    public void UnlockShockSlam()
+    {
+        abilityManager.UnlockAbility("ShockSlam", 60);
+        shockSlamUnlockButton.SetActive(false);
+    }
     public void UnlockGroundPound()
     {
-        abilityManager.UnlockAbility("GroundPound", 20);
+        abilityManager.UnlockAbility("GroundPound", 30);
         groundPoundUnlockButton.SetActive(false);
     }
     public void UnlockFireball()

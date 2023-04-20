@@ -15,6 +15,7 @@ public class AbilityManager : MonoBehaviour
     private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool> {
     { "GroundSlam", false },
     { "GroundPound", false },
+    { "ShockSlam", false },
     { "Iceball", false },
     { "Fireball", false }};
     // Ability trees
@@ -40,6 +41,18 @@ public class AbilityManager : MonoBehaviour
     public float groundPoundRadius { get; private set; }
     public float groundPoundCooldown { get; private set; }
     public int groundPoundTrembleDuration { get; private set; }
+
+    //shockslam abil
+    public int shockSlamDamageLevel { get; set; }
+    public int shockSlamRadiusLevel { get; set; }
+    public int shockSlamCooldownLevel { get; set; }
+    public int shockSlamStunDurationLevel { get; set; }
+    public int shockSlamKnockbackForceLevel { get; set; }
+    public float shockSlamDamage { get; private set; }
+    public float shockSlamRadius { get; private set; }
+    public float shockSlamCooldown { get; private set; }
+    public float shockSlamStunDuration { get; private set; }
+    public float shockSlamKnockbackForce { get; private set; }
 
     // UI
     public AbilityUI abilityUpgradeUI;
@@ -78,10 +91,17 @@ public class AbilityManager : MonoBehaviour
         groundPoundCooldown = 10f;
         groundPoundTrembleDuration = 5;
 
+        shockSlamDamage = 20f;
+        shockSlamRadius = 3;
+        shockSlamCooldown = 8;
+        shockSlamStunDuration = 3;
+        shockSlamKnockbackForce = 20;
+
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
         groundTree.AddAbility("GroundPound");
+        groundTree.AddAbility("ShockSlam");
 
         iceTree = new AbilityTree("Ice");
         iceTree.AddAbility("Iceball");
@@ -217,8 +237,29 @@ public class AbilityManager : MonoBehaviour
         return groundPoundCooldown;
     }
 
-    public int GetGroundPoundTrembleDuration()
+    public float GetGroundPoundTrembleDuration()
     {
         return groundPoundTrembleDuration;
+    }
+
+    //shockslam
+
+    public float GetShockSlamRadius() {
+        return shockSlamRadius;
+    }
+    public float GetShockSlamDamage() {
+    return shockSlamDamage;
+    }
+    public float GetShockSlamKnockbackForce()
+    {
+return shockSlamKnockbackForce;
+    }
+    public float GetShockSlamStunDuration()
+    {
+        return shockSlamStunDuration;
+    }
+    public float GetShockSlamCooldown()
+    {
+        return shockSlamCooldown;
     }
 }
