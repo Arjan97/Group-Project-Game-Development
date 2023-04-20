@@ -14,7 +14,7 @@ public class AbilityManager : MonoBehaviour
     //Dictionaries
     private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool> {
     { "GroundSlam", false },
-    {"GroundPound", false },
+    { "GroundPound", false },
     { "Iceball", false },
     { "Fireball", false }};
     // Ability trees
@@ -40,7 +40,6 @@ public class AbilityManager : MonoBehaviour
     public float groundPoundRadius { get; private set; }
     public float groundPoundCooldown { get; private set; }
     public int groundPoundTrembleDuration { get; private set; }
-    public float groundPoundTrembleMagnitude { get; private set; }
 
     // UI
     public AbilityUI abilityUpgradeUI;
@@ -72,14 +71,17 @@ public class AbilityManager : MonoBehaviour
         groundPoundCooldownLevel= 1;
         groundPoundDamageLevel= 1;
         groundPoundRadiusLevel= 1;
+        groundPoundTrembleDurationLevel= 1;
 
-        groundPoundDamage= 10f;
-        groundPoundRadius= 1;
-        groundPoundCooldown = 8f;
+        groundPoundDamage= 15f;
+        groundPoundRadius= 4;
+        groundPoundCooldown = 10f;
+        groundPoundTrembleDuration = 5;
 
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
+        groundTree.AddAbility("GroundPound");
 
         iceTree = new AbilityTree("Ice");
         iceTree.AddAbility("Iceball");
@@ -138,6 +140,8 @@ public class AbilityManager : MonoBehaviour
             {
                 SpendPoints(cost);
                 unlockedAbilities[abilityName] = true;
+
+                Debug.Log("ability: " + abilityName + " unlocked");
             }
             else
             {
@@ -216,10 +220,5 @@ public class AbilityManager : MonoBehaviour
     public int GetGroundPoundTrembleDuration()
     {
         return groundPoundTrembleDuration;
-    }
-
-    public float GetGroundPoundTrembleMagnitude()
-    {
-        return groundPoundTrembleMagnitude;
     }
 }

@@ -8,7 +8,6 @@ public class GroundPound : MonoBehaviour
     public float damage;
     public float groundPoundCooldownTime;
     public float trembleDuration;
-    public float trembleMagnitude;
     private AbilityManager abilityManager;
 
     void Start()
@@ -20,6 +19,7 @@ public class GroundPound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P) && abilityManager.CanUseAbility("GroundPound"))
         {
+            Debug.Log("using ground pound");
             abilityManager.StartAbilityCooldown(groundPoundCooldownTime);
             GroundPounder();
         }
@@ -28,7 +28,6 @@ public class GroundPound : MonoBehaviour
         damage = AbilityManager.instance.GetGroundPoundDamage();
         groundPoundCooldownTime = AbilityManager.instance.GetGroundPoundCooldown();
         trembleDuration = AbilityManager.instance.GetGroundPoundTrembleDuration();
-        trembleMagnitude = AbilityManager.instance.GetGroundPoundTrembleMagnitude();
     }
 
     void GroundPounder()
@@ -46,7 +45,7 @@ public class GroundPound : MonoBehaviour
                 EnemyMovement enemy = collider.GetComponent<EnemyMovement>();
                 if (enemy != null)
                 {
-                    enemy.ApplyTrembleEffect(trembleDuration, trembleMagnitude);
+                    enemy.ApplyTrembleEffect(trembleDuration);
                 }
             }
         }

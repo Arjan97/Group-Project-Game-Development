@@ -31,22 +31,23 @@ public class EnemyMovement : MonoBehaviour
             transform.LookAt(player);
         }
     }
-    public void ApplyTrembleEffect(float trembleDuration, float trembleMagnitude)
+    public void ApplyTrembleEffect(float trembleDuration)
     {
-        StartCoroutine(TrembleEffect(trembleDuration, trembleMagnitude));
+        StartCoroutine(TrembleEffect(trembleDuration));
     }
-    private IEnumerator TrembleEffect(float trembleDuration, float trembleMagnitude)
+    private IEnumerator TrembleEffect(float trembleDuration )
     {
         // Store the initial movement speed
         float originalSpeed = speed;
 
         // Apply the tremble effect by halving the movement speed
         speed *= 0.5f;
-
+        Debug.Log("enemyspeed: " + speed);
         // Wait for the tremble duration
         yield return new WaitForSeconds(trembleDuration);
 
         // Reset the movement speed back to its original value
         speed = originalSpeed;
+        Debug.Log("enemyspeed reset to: " + speed);
     }
 }

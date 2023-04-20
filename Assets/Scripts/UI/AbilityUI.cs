@@ -136,9 +136,8 @@ public class AbilityUI : MonoBehaviour
     }
     public void UnlockGroundPound()
     {
-        Debug.Log("Groundpound unlocked");
-        abilityManager.UnlockAbility("GroundPound", 0);
-        groundSlamUnlockButton.SetActive(false);
+        abilityManager.UnlockAbility("GroundPound", 20);
+        groundPoundUnlockButton.SetActive(false);
     }
     public void UnlockFireball()
     {
