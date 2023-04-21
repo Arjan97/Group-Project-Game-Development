@@ -39,18 +39,15 @@ public class ShockSlam : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             EnemyHealth enemyHealth = collider.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            EnemyMovement enemyMovement = collider.GetComponent<EnemyMovement>();
+            if (enemyHealth != null && enemyMovement != null)
             {
                 // Damage enemy
                 enemyHealth.TakeDamage(damage);
 
                 // Apply knockback force and stun to enemy
-                EnemyMovement enemyMovement = collider.GetComponent<EnemyMovement>();
-                if (enemyMovement != null)
-                {
-                    enemyMovement.ApplyKnockbackEffect(knockbackForce);
-                    enemyMovement.ApplyStunEffect(stunDuration);
-                }
+                enemyMovement.ApplyKnockbackEffect(knockbackForce);
+                enemyMovement.ApplyStunEffect(stunDuration);
             }
         }
     }

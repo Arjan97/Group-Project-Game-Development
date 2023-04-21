@@ -19,6 +19,7 @@ public class PlayerMovement2 : MonoBehaviour
     private bool sprinting;
     public bool locked = true;
 
+    public float speedBoost = 10f;
     private void Awake()
     {
         inputMaster = new InputMaster();
@@ -52,22 +53,26 @@ public class PlayerMovement2 : MonoBehaviour
 
     private void Move()
     {
-
         Vector2 input = inputMaster.Player.Movement.ReadValue<Vector2>();
-
-        Vector3 currentVelocity = rb.velocity;
-        Vector3 targetVelocity = new Vector3(input.x, 0, input.y);
-        targetVelocity *= movementSpeed;
+        Vector3 targetVelocity = new Vector3(input.x, 0, input.y) * movementSpeed;
 
         targetVelocity = transform.TransformDirection(targetVelocity);
-
-        Vector3 velocityChange = (targetVelocity - currentVelocity);
+        Vector3 velocityChange = (targetVelocity - rb.velocity);
         velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
 
-        if (sprinting && rb.velocity != Vector3.zero) { movementSpeed = 10f; animator.SetBool("goWalk", false); animator.SetBool("goRun", true); }
-        else if (!sprinting) { movementSpeed = 5; }
-        if (sprinting) { movementSpeed = 10f; animator.SetBool("goWalk", false); animator.SetBool("goRun", true); }
-        else if (!sprinting) { movementSpeed = 5; }
+        // Apply speed boost
+        if (sprinting && rb.velocity != Vector3.zero)
+        {
+            movementSpeed = speedBoost;
+            animator.SetBool("goWalk", false);
+            animator.SetBool("goRun", true);
+        }
+        else
+        {
+            movementSpeed = 5f;
+            animator.SetBool("goWalk", true);
+            animator.SetBool("goRun", false);
+        }
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
@@ -120,5 +125,22 @@ public class PlayerMovement2 : MonoBehaviour
             animator.SetBool("goRun", false);
             animator.SetBool("goIdle", true) ;
         }
+    }
+
+    public void ApplySpeedBoost(float duration, float amount)
+    {
+        speedBoost = amount;
+
+        // Start a coroutine to revert the speed boost after a certain duration
+        StartCoroutine(RevertSpeedBoost(duration));
+    }
+
+    private IEnumerator RevertSpeedBoost(float duration)
+    {
+        // Wait for the specified duration
+        yield return new WaitForSeconds(duration);
+
+        // Revert the speed boost
+        speedBoost = 10f;
     }
 }

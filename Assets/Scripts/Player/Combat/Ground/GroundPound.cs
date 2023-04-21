@@ -17,7 +17,7 @@ public class GroundPound : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && abilityManager.CanUseAbility("GroundPound"))
+        if (Input.GetKeyDown(KeyCode.V) && abilityManager.CanUseAbility("GroundPound"))
         {
             Debug.Log("using ground pound");
             abilityManager.StartAbilityCooldown(groundPoundCooldownTime);
