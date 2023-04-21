@@ -37,6 +37,10 @@ public class AbilityUI : MonoBehaviour
     //shockslam
     [SerializeField] private GameObject shockSlamUnlockButton;
     [SerializeField] private GameObject shockSlamSelectButton;
+    //swiftstride
+    [SerializeField] private GameObject swiftStrideUnlockButton;
+    [SerializeField] private GameObject swiftStrideSelectButton;
+
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
     [SerializeField] private GameObject fireballUnlockButton;
@@ -58,6 +62,7 @@ public class AbilityUI : MonoBehaviour
         groundPoundSelectButton.SetActive(false);
         groundSlamSelectButton.SetActive(false);
         shockSlamSelectButton.SetActive(false);
+        swiftStrideSelectButton.SetActive(false);
 
         fireTree = abilityManager.fireTree;
         iceTree = abilityManager.iceTree;
@@ -165,6 +170,12 @@ public class AbilityUI : MonoBehaviour
         groundPoundUnlockButton.SetActive(false);
         groundPoundSelectButton.SetActive(true);
     }
+    public void UnlockSwiftStride()
+    {
+        abilityManager.UnlockAbility("SwiftStride", 50);
+        swiftStrideUnlockButton.SetActive(false);
+        swiftStrideSelectButton.SetActive(true);
+    }
     public void UnlockFireball()
     {
         abilityManager.UnlockAbility("Fireball", 0);
@@ -224,7 +235,22 @@ public class AbilityUI : MonoBehaviour
             groundPoundSelectButton.GetComponent<Button>().colors = colors;
         }
     }
-
+    public void SelectSwiftStride()
+    {
+        abilityManager.SelectAbility("SwiftStride");
+        if (abilityManager.selectedAbilities.Contains("SwiftStride"))
+        {
+            ColorBlock colors = swiftStrideSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.green;
+            swiftStrideSelectButton.GetComponent<Button>().colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = swiftStrideSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.red;
+            swiftStrideSelectButton.GetComponent<Button>().colors = colors;
+        }
+    }
     //upgrade abils
     public void UpgradeGroundSlamDamage()
     {
