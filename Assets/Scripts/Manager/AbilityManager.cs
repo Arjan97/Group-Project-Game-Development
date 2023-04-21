@@ -17,6 +17,7 @@ public class AbilityManager : MonoBehaviour
     { "GroundPound", false },
     { "ShockSlam", false },
     { "SwiftStride", false },
+    { "RumblingRampage", false },
     { "Iceball", false },
     { "Fireball", false }};
     // Ability trees
@@ -69,6 +70,11 @@ public class AbilityManager : MonoBehaviour
     public float swiftStrideSpeedBoostDuration { get; private set; }
     public float swiftStrideSpeedBoostAmount { get; private set; }
 
+    //rumblingrampage
+    public float rumblingRampageDamage { get; private set; }
+    public float rumblingRampageRadius { get; private set; }
+    public float rumblingRampageCooldown { get; private set; }
+    public float rumblingRampageKnockbackForce { get; private set; }
     // UI
     public AbilityUI abilityUpgradeUI;
     void Awake()
@@ -109,6 +115,7 @@ public class AbilityManager : MonoBehaviour
         shockSlamDamage = 20f;
         shockSlamRadius = 3;
         shockSlamCooldown = 8;
+        shockSlamKnockbackForce = 2f;
 
         swiftStrideDamageLevel = 1;
         swiftStrideRadiusLevel=1;
@@ -121,12 +128,18 @@ public class AbilityManager : MonoBehaviour
         swiftStrideSpeedBoostAmount = 20; 
         swiftStrideSpeedBoostDuration=3;
 
+        rumblingRampageCooldown = 8;
+        rumblingRampageDamage = 50;
+        rumblingRampageKnockbackForce = 4f;
+        rumblingRampageRadius = 3;
+
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
         groundTree.AddAbility("GroundPound");
         groundTree.AddAbility("ShockSlam");
         groundTree.AddAbility("SwiftStride");
+        groundTree.AddAbility("RumblingRampage");
 
         iceTree = new AbilityTree("Ice");
         iceTree.AddAbility("Iceball");
@@ -329,5 +342,22 @@ return shockSlamKnockbackForce;
     {
         return swiftStrideSpeedBoostAmount;
     }
+    //rumblingrampage
 
+    public float GetRumblingRampageRadius()
+    {
+        return rumblingRampageRadius;
+    }
+    public float GetRumblingRampageCooldown()
+    {
+        return rumblingRampageCooldown;
+    }
+    public float GetRumblingRampageDamage()
+    {
+        return rumblingRampageDamage;
+    }
+    public float GetRumblingRampageKnockBackForce()
+    {
+        return rumblingRampageKnockbackForce;
+    }
 }

@@ -493,10 +493,10 @@ GameObject:
   - component: {fileID: 6028345176585406091}
   - component: {fileID: 6028345176585406090}
   - component: {fileID: 6028345176585406101}
-  - component: {fileID: 6028345176585406089}
   - component: {fileID: 6028345176585406094}
   - component: {fileID: 6028345176585406092}
   - component: {fileID: 3801775300086963389}
+  - component: {fileID: 7583107598964921999}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Enemy
@@ -583,22 +583,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.39, y: 1.42, z: 1.09}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6028345176585406089
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6028345176585406100}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &6028345176585406094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +632,24 @@ MonoBehaviour:
   iceballSlowAmount: 0.5
   slider: {fileID: 570202451}
   healthBarUI: {fileID: 6131807686814483015}
+--- !u!143 &7583107598964921999
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028345176585406100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6131807686814483015
 GameObject:
   m_ObjectHideFlags: 0

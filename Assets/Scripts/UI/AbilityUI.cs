@@ -40,6 +40,9 @@ public class AbilityUI : MonoBehaviour
     //swiftstride
     [SerializeField] private GameObject swiftStrideUnlockButton;
     [SerializeField] private GameObject swiftStrideSelectButton;
+    //rumblingrampage
+    [SerializeField] private GameObject rumblingRampageUnlockButton;
+    [SerializeField] private GameObject rumblingRampageSelectButton;
 
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
@@ -63,6 +66,7 @@ public class AbilityUI : MonoBehaviour
         groundSlamSelectButton.SetActive(false);
         shockSlamSelectButton.SetActive(false);
         swiftStrideSelectButton.SetActive(false);
+        rumblingRampageSelectButton.SetActive(false);
 
         fireTree = abilityManager.fireTree;
         iceTree = abilityManager.iceTree;
@@ -160,7 +164,7 @@ public class AbilityUI : MonoBehaviour
     }
     public void UnlockShockSlam()
     {
-        abilityManager.UnlockAbility("ShockSlam", 60);
+        abilityManager.UnlockAbility("ShockSlam", 40);
         shockSlamUnlockButton.SetActive(false);
         shockSlamSelectButton.SetActive(true);
     }
@@ -172,9 +176,15 @@ public class AbilityUI : MonoBehaviour
     }
     public void UnlockSwiftStride()
     {
-        abilityManager.UnlockAbility("SwiftStride", 50);
+        abilityManager.UnlockAbility("SwiftStride", 30);
         swiftStrideUnlockButton.SetActive(false);
         swiftStrideSelectButton.SetActive(true);
+    }
+    public void UnlockRumblingRampage()
+    {
+        abilityManager.UnlockAbility("RumblingRampage", 60);
+        rumblingRampageUnlockButton.SetActive(false);
+        rumblingRampageSelectButton.SetActive(true);
     }
     public void UnlockFireball()
     {
@@ -249,6 +259,22 @@ public class AbilityUI : MonoBehaviour
             ColorBlock colors = swiftStrideSelectButton.GetComponent<Button>().colors;
             colors.normalColor = Color.red;
             swiftStrideSelectButton.GetComponent<Button>().colors = colors;
+        }
+    }
+    public void SelectRumblingRampage()
+    {
+        abilityManager.SelectAbility("RumblingRampage");
+        if (abilityManager.selectedAbilities.Contains("RumblingRampage"))
+        {
+            ColorBlock colors = rumblingRampageSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.green;
+            rumblingRampageSelectButton.GetComponent<Button>().colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = rumblingRampageSelectButton.GetComponent<Button>().colors;
+            colors.normalColor = Color.red;
+            rumblingRampageSelectButton.GetComponent<Button>().colors = colors;
         }
     }
     //upgrade abils

@@ -8,10 +8,13 @@ public class EnemyMovement : MonoBehaviour
     public float detectionRange = 10.0f; // range within which the enemy can detect the player
     private Transform player; // reference to the player's transform
     private bool isStunned = false;
+    private CharacterController characterController;
+
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -23,13 +26,8 @@ public class EnemyMovement : MonoBehaviour
             // if the player is within the detection range
             if (distance <= detectionRange)
             {
-                // calculate the direction to move towards the player
                 Vector3 direction = (player.position - transform.position).normalized;
-
-                // move the enemy towards the player
-                transform.position += direction * speed * Time.deltaTime;
-
-                // rotate the enemy to face the player
+                characterController.SimpleMove(direction * speed);
                 transform.LookAt(player);
             }
         }
@@ -51,9 +49,7 @@ public class EnemyMovement : MonoBehaviour
 
         // Normalize the direction vector
         knockbackDirection.Normalize();
-
-        // Apply knockback force in the opposite direction of the player-enemy vector
-        GetComponent<Rigidbody>().AddForce(knockbackDirection * -knockbackForce, ForceMode.Impulse);
+        characterController.Move(knockbackDirection * knockbackForce);
     }
 
     public void ApplyTrembleEffect(float trembleDuration)
