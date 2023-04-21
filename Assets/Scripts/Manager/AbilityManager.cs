@@ -343,7 +343,6 @@ return shockSlamKnockbackForce;
         return swiftStrideSpeedBoostAmount;
     }
     //rumblingrampage
-
     public float GetRumblingRampageRadius()
     {
         return rumblingRampageRadius;
