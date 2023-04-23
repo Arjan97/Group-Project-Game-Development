@@ -2,36 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwiftStride : MonoBehaviour
+public class SwiftStride : Ability
 {
-    public float damage;
-    public float radius;
-    public float speedBoostDuration;
-    public float speedBoostAmount;
-    public float swiftStrideCooldownTime;
-
-    private AbilityManager abilityManager;
-
-    void Start()
+    protected override void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        activationKey = KeyCode.X;
+        abilityName = "SwiftStride";
+        base.Start();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X) && abilityManager.CanUseAbility("SwiftStride"))
-        {
-            abilityManager.StartAbilityCooldown(swiftStrideCooldownTime);
-            SwiftStrider();
-        }
-        radius = AbilityManager.instance.GetSwiftStrideRadius();
-        damage = AbilityManager.instance.GetSwiftStrideDamage();
-        speedBoostDuration = AbilityManager.instance.GetSwiftStrideSpeedBoostDuration();
-        speedBoostAmount = AbilityManager.instance.GetSwiftStrideSpeedBoostAmount();
-        swiftStrideCooldownTime = AbilityManager.instance.GetSwiftStrideCooldown();
-    }
-
-    void SwiftStrider()
+    protected override void Activate()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
@@ -46,6 +26,6 @@ public class SwiftStride : MonoBehaviour
 
         // Apply speed boost to player
         PlayerMovement2 player = GetComponent<PlayerMovement2>();
-        player.ApplySpeedBoost(speedBoostDuration, speedBoostAmount);
+        player.ApplySpeedBoost(duration, boostAmount);
     }
 }

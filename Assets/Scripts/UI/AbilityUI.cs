@@ -75,7 +75,6 @@ public class AbilityUI : MonoBehaviour
 
     private void Update()
     {
-        UpdateGroundSlamUpgradeText();
         UpdateUpgradePointsText();
         SwitchTreePanel();
         OpenTree();
@@ -97,29 +96,20 @@ public class AbilityUI : MonoBehaviour
             player.GetComponent<PlayerInteract>().EnablePlayerActions();
         }
     }
-    public void SwitchTree()
+    public void SwitchFire()
     {
-        Debug.Log("SwitchTree function called");
-
-        switch (dropdown.value)
-        {
-
-            case 0:
-                // Fire tree selected
-                AbilityManager.instance.SetActiveAbilityTree(fireTree);
-                Debug.Log("chose fire");
-                break;
-            case 1:
-                // Ice tree selected
-                AbilityManager.instance.SetActiveAbilityTree(iceTree);
-                Debug.Log("chose ice");
-                break;
-            case 2:
-                // Ground tree selected
-                AbilityManager.instance.SetActiveAbilityTree(groundTree);
-                Debug.Log("chose earth");
-                break;
-        }
+        // Fire tree selected
+        AbilityManager.instance.SetActiveAbilityTree(fireTree);
+    }
+    public void SwitchGround()
+    {
+        // Fire tree selected
+        AbilityManager.instance.SetActiveAbilityTree(groundTree);
+    }
+    public void SwitchIce()
+    {
+        // Fire tree selected
+        AbilityManager.instance.SetActiveAbilityTree(iceTree);
     }
 
     public void SwitchTreePanel()
@@ -158,9 +148,9 @@ public class AbilityUI : MonoBehaviour
     public void UnlockGroundSlam()
     {
         abilityManager.UnlockAbility("GroundSlam", 0);
-        abilityManager.SelectAbility("GroundSlam");
+        //abilityManager.SelectAbility("GroundSlam");
         groundSlamUnlockButton.SetActive(false);
-        //groundSlamSelectButton.SetActive(true);
+        groundSlamSelectButton.SetActive(true);
     }
     public void UnlockShockSlam()
     {
@@ -278,70 +268,10 @@ public class AbilityUI : MonoBehaviour
         }
     }
     //upgrade abils
-    public void UpgradeGroundSlamDamage()
-    {
-        int cost = abilityManager.groundSlamDamageLevel * 10 + 10;
-        if (abilityManager.CanAfford(cost))
-        {
-            abilityManager.SpendPoints(cost);
-            abilityManager.groundSlamDamageLevel++;
-            abilityManager.UpgradeGroundSlamDamage(5f);
-            UpdateUpgradePointsText();
-            UpdateGroundSlamUpgradeText();
-        }
-    }
-
-    public void UpgradeGroundSlamRadius()
-    {
-        int cost = abilityManager.groundSlamRadiusLevel * 10 + 10;
-        if (abilityManager.CanAfford(cost))
-        {
-            abilityManager.SpendPoints(cost);
-            abilityManager.groundSlamRadiusLevel++;
-            abilityManager.UpgradeGroundSlamRadius(1f);
-            UpdateUpgradePointsText();
-            UpdateGroundSlamUpgradeText();
-        }
-    }
-
-    public void UpgradeGroundSlamCooldown()
-    {
-        int cost = abilityManager.groundSlamCooldownLevel * 10 + 10;
-        if (abilityManager.CanAfford(cost))
-        {
-            abilityManager.SpendPoints(cost);
-            abilityManager.groundSlamCooldownLevel++;
-            abilityManager.UpgradeGroundSlamCooldown(0.5f);
-            UpdateUpgradePointsText();
-            UpdateGroundSlamUpgradeText();
-        }
-    }
 
     private void UpdateUpgradePointsText()
     {
         upgradePointsText.text = "Skillpoints: " + abilityManager.upgradePoints;
     }
 
-    private void UpdateGroundSlamUpgradeText()
-    {
-        if (!abilityManager.IsAbilityUnlocked("GroundSlam"))
-        {
-            // If the ability is not unlocked, disable the upgrade panel and the button
-            groundSlamUnlockButton.SetActive(true);
-            groundSlamUpgradePanel.SetActive(false);
-            groundSlamUnlockText.text = "Unlock GroundSlam";
-        }
-        else
-        {
-            // If the ability is unlocked, enable the upgrade panel and the texts, and disable the button
-            groundSlamDamageText.text = "Groundslam Damage: " + abilityManager.groundSlamDamage +
-                                        " (Lv. " + abilityManager.groundSlamDamageLevel + ")";
-            groundSlamRadiusText.text = "Groundslam Radius: " + abilityManager.groundSlamRadius +
-                                        " (Lv. " + abilityManager.groundSlamRadiusLevel + ")";
-            groundSlamCooldownText.text = "Groundslam Cooldown: " + abilityManager.groundSlamCooldown +
-                                           "s (Lv. " + abilityManager.groundSlamCooldownLevel + ")";
-            groundSlamUpgradePanel.SetActive(true);
-            groundSlamUnlockButton.SetActive(false);
-        }
-    }
 }
