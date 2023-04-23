@@ -26,7 +26,7 @@ public class MovementAI : MonoBehaviour
     [SerializeField] private float angleMax = 90f;
 
     /* The length of the path of the agent before getting a new path */
-    [SerializeField] private float pathLength = 10f;
+    [SerializeField] private float pathLength = 250f;
 
     /* Float to store the new angle for a new direction, calculated randomly between angleMin and angleMax */
     private float randomDegrees;
@@ -43,11 +43,16 @@ public class MovementAI : MonoBehaviour
 
         /* Give the agent a new destination at start */
         NewDestination();
+
+        Debug.Log("Terrain min x: " + terrain.bounds.min.x);
+        Debug.Log("Terrain max x: " + terrain.bounds.max.x);
+        Debug.Log("Terrain min z: " + terrain.bounds.min.z);
+        Debug.Log("Terrain max z: " + terrain.bounds.max.z);
     }
 
     void Update()
     {
-        CheckEdgeCollision();
+        //NearTerrainEdge();
 
         /* Draw a ray in the forward moving direction */
         Debug.DrawLine(transform.position + new Vector3(0, 1), transform.forward, color: Color.blue);
@@ -58,9 +63,23 @@ public class MovementAI : MonoBehaviour
             /* Call method to get a new destination upon reaching its destination */
             NewDestination();
         }
+        Debug.DrawLine(transform.position, targetVector, Color.white);
+
+        //Mathf.Clamp(targetVector.x, terrain.bounds.min.x, terrain.bounds.max.x);
+        //        Debug.Log("Targetvector: " + targetVector) ;
+
+        float distanceLeftEdge = transform.position.x - terrain.bounds.min.x;
+        float distanceRightEdge = terrain.bounds.max.x - transform.position.x;
+
+        pathLength = distanceLeftEdge;
+
+        
+
+        //Mathf.Clamp(targetVector.x, transform.position.x , distanceLeftEdge);
+        //  Mathf.Clamp(targetVector.z, transform.position.z , distanceLeftEdge);
     }
 
-    private void CheckEdgeCollision()
+    private void NearTerrainEdge()
     {
         //if forward ray hits a wall, and the distance < x then rotate the gamobject and call newDestination
         //If the object is near bounds, rotate object and call new destination
@@ -71,16 +90,27 @@ public class MovementAI : MonoBehaviour
 
         float xMin = terrain.bounds.min.x;
         float xMax = terrain.bounds.max.x;
-
         float zMin = terrain.bounds.min.z;
         float zMax = terrain.bounds.max.z;
 
+        float rangeOffset = 1.5f;
 
-        if (px < xMin +1 || px > xMax - 1 || pz < zMin +1 || pz > zMax - 1)
+
+        if (px < xMin + rangeOffset || px > xMax - rangeOffset || pz < zMin + rangeOffset || pz > zMax - rangeOffset)
         {
             Debug.Log("Near edge ");
 
-            nearEdge = true;
+            if (nearEdge == false)
+            {
+                transform.Rotate(transform.up, 180 * Time.deltaTime);
+
+                nearEdge = true;
+
+                NewDestination();
+            }
+        } else
+        {
+            nearEdge = false;
         }
     }
 
@@ -91,6 +121,11 @@ public class MovementAI : MonoBehaviour
     {
         /* Set the targetvector equal to a new random vector, gained by calling the GetNewWaypoint() method */
         targetVector = NewCheckpoint();
+
+      /*  Mathf.Clamp(targetVector.x, terrain.bounds.min.x, terrain.bounds.max.x);
+        Mathf.Clamp(targetVector.z, terrain.bounds.min.z, terrain.bounds.max.z);*/
+
+        Debug.Log("Targetvector: " + targetVector);
 
         /* Call the SetDestination method with the new targetvector as parameter to move towards the new vector*/
         agent.SetDestination(targetVector);
@@ -114,13 +149,20 @@ public class MovementAI : MonoBehaviour
             /* If it is a hit, set the new checkpoint to the point that hit */
             newCheckpoint = hit.point;
 
+            Mathf.Clamp(newCheckpoint.x, terrain.bounds.min.x, terrain.bounds.max.x);
+            Mathf.Clamp(newCheckpoint.z, terrain.bounds.min.z, terrain.bounds.max.z);
+
             /* Draw a black line to see what it hit */
             Debug.DrawLine(transform.position, newCheckpoint, Color.black);
         }
         else /* If the ray does not hit something */
         {
+            Debug.Log("No hit");
             /* Set the new chekpoint to a point x distance on the new ray */
             newCheckpoint = newDirectionRay.GetPoint(pathLength);
+
+            //Mathf.Clamp(newDirectionRay.GetPoint(pathLength).x, terrain.bounds.min.x, terrain.bounds.max.x);
+            //Mathf.Clamp(newDirectionRay.GetPoint(pathLength).z, terrain.bounds.min.z, terrain.bounds.max.z);
 
             /* Draw a yellow line to see where the checkpoint is */
             Debug.DrawLine(transform.position, newCheckpoint, Color.yellow);
