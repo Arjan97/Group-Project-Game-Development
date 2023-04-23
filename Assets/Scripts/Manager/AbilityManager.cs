@@ -14,7 +14,10 @@ public class AbilityManager : MonoBehaviour
     //Dictionaries
     private Dictionary<string, bool> unlockedAbilities = new Dictionary<string, bool> {
     { "GroundSlam", false },
-    {"GroundPound", false },
+    { "GroundPound", false },
+    { "ShockSlam", false },
+    { "SwiftStride", false },
+    { "RumblingRampage", false },
     { "Iceball", false },
     { "Fireball", false }};
     // Ability trees
@@ -22,7 +25,9 @@ public class AbilityManager : MonoBehaviour
     public AbilityTree iceTree;
     public AbilityTree fireTree;
     public AbilityTree playerAbilityTree;
-
+    // Ability selection
+    public List<string> selectedAbilities = new List<string>();
+    public int maxSelectedAbilities = 2;
     // Groundslam ability
     public int groundSlamDamageLevel { get; set; }
     public int groundSlamRadiusLevel { get; set; }
@@ -40,8 +45,36 @@ public class AbilityManager : MonoBehaviour
     public float groundPoundRadius { get; private set; }
     public float groundPoundCooldown { get; private set; }
     public int groundPoundTrembleDuration { get; private set; }
-    public float groundPoundTrembleMagnitude { get; private set; }
 
+    //shockslam abil
+    public int shockSlamDamageLevel { get; set; }
+    public int shockSlamRadiusLevel { get; set; }
+    public int shockSlamCooldownLevel { get; set; }
+    public int shockSlamStunDurationLevel { get; set; }
+    public int shockSlamKnockbackForceLevel { get; set; }
+    public float shockSlamDamage { get; private set; }
+    public float shockSlamRadius { get; private set; }
+    public float shockSlamCooldown { get; private set; }
+    public float shockSlamStunDuration { get; private set; }
+    public float shockSlamKnockbackForce { get; private set; }
+
+    //swiftstride abil 
+    public int swiftStrideDamageLevel { get; set; }
+    public int swiftStrideRadiusLevel { get; set; }
+    public int swiftStrideCooldownLevel { get; set; }
+    public int swiftStrideSpeedBoostDurationLevel { get; set; }
+    public int swiftStrideSpeedBoostAmountLevel { get; set; }
+    public float swiftStrideDamage { get; private set; }
+    public float swiftStrideRadius { get; private set; }
+    public float swiftStrideCooldown { get; private set; }
+    public float swiftStrideSpeedBoostDuration { get; private set; }
+    public float swiftStrideSpeedBoostAmount { get; private set; }
+
+    //rumblingrampage
+    public float rumblingRampageDamage { get; private set; }
+    public float rumblingRampageRadius { get; private set; }
+    public float rumblingRampageCooldown { get; private set; }
+    public float rumblingRampageKnockbackForce { get; private set; }
     // UI
     public AbilityUI abilityUpgradeUI;
     void Awake()
@@ -72,14 +105,41 @@ public class AbilityManager : MonoBehaviour
         groundPoundCooldownLevel= 1;
         groundPoundDamageLevel= 1;
         groundPoundRadiusLevel= 1;
+        groundPoundTrembleDurationLevel= 1;
 
-        groundPoundDamage= 10f;
-        groundPoundRadius= 1;
-        groundPoundCooldown = 8f;
+        groundPoundDamage= 15f;
+        groundPoundRadius= 4;
+        groundPoundCooldown = 10f;
+        groundPoundTrembleDuration = 5;
+
+        shockSlamDamage = 20f;
+        shockSlamRadius = 3;
+        shockSlamCooldown = 8;
+        shockSlamKnockbackForce = 2f;
+
+        swiftStrideDamageLevel = 1;
+        swiftStrideRadiusLevel=1;
+        swiftStrideCooldownLevel = 1;
+        swiftStrideSpeedBoostAmountLevel = 1;
+        swiftStrideSpeedBoostDurationLevel= 1;
+        swiftStrideCooldown = 6;
+        swiftStrideDamage = 20;
+        swiftStrideRadius = 5;
+        swiftStrideSpeedBoostAmount = 20; 
+        swiftStrideSpeedBoostDuration=3;
+
+        rumblingRampageCooldown = 8;
+        rumblingRampageDamage = 50;
+        rumblingRampageKnockbackForce = 4f;
+        rumblingRampageRadius = 3;
 
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
+        groundTree.AddAbility("GroundPound");
+        groundTree.AddAbility("ShockSlam");
+        groundTree.AddAbility("SwiftStride");
+        groundTree.AddAbility("RumblingRampage");
 
         iceTree = new AbilityTree("Ice");
         iceTree.AddAbility("Iceball");
@@ -119,7 +179,7 @@ public class AbilityManager : MonoBehaviour
     }
     public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName);
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) && selectedAbilities.Contains(abilityName);
     }
     public bool IsAbilityUnlocked(string abilityName)
     {
@@ -138,6 +198,8 @@ public class AbilityManager : MonoBehaviour
             {
                 SpendPoints(cost);
                 unlockedAbilities[abilityName] = true;
+
+                Debug.Log("ability: " + abilityName + " unlocked");
             }
             else
             {
@@ -163,6 +225,26 @@ public class AbilityManager : MonoBehaviour
     public void SpendPoints(int cost)
     {
         upgradePoints -= cost;
+    }
+    public void SelectAbility(string abilityName)
+    {
+        if (!selectedAbilities.Contains(abilityName))
+        {
+            if (selectedAbilities.Count < maxSelectedAbilities)
+            {
+                selectedAbilities.Add(abilityName);
+                Debug.Log("Selected ability: " + abilityName);
+            }
+            else
+            {
+                Debug.Log("Cannot select more than " + maxSelectedAbilities + " abilities");
+            }
+        }
+        else
+        {
+            selectedAbilities.Remove(abilityName);
+            Debug.Log("Deselected ability: " + abilityName);
+        }
     }
 
     //Groundslam ability upgrades
@@ -213,13 +295,68 @@ public class AbilityManager : MonoBehaviour
         return groundPoundCooldown;
     }
 
-    public int GetGroundPoundTrembleDuration()
+    public float GetGroundPoundTrembleDuration()
     {
         return groundPoundTrembleDuration;
     }
 
-    public float GetGroundPoundTrembleMagnitude()
+    //shockslam
+
+    public float GetShockSlamRadius() {
+        return shockSlamRadius;
+    }
+    public float GetShockSlamDamage() {
+    return shockSlamDamage;
+    }
+    public float GetShockSlamKnockbackForce()
     {
-        return groundPoundTrembleMagnitude;
+return shockSlamKnockbackForce;
+    }
+    public float GetShockSlamStunDuration()
+    {
+        return shockSlamStunDuration;
+    }
+    public float GetShockSlamCooldown()
+    {
+        return shockSlamCooldown;
+    }
+
+    //swiftstride
+    public float GetSwiftStrideRadius()
+    {
+        return swiftStrideRadius;
+    }
+    public float GetSwiftStrideCooldown()
+    {
+        return swiftStrideCooldown;
+    }
+    public float GetSwiftStrideDamage()
+    {
+        return swiftStrideDamage;
+    }
+    public float GetSwiftStrideSpeedBoostDuration()
+    {
+        return swiftStrideSpeedBoostDuration;
+    }
+    public float GetSwiftStrideSpeedBoostAmount()
+    {
+        return swiftStrideSpeedBoostAmount;
+    }
+    //rumblingrampage
+    public float GetRumblingRampageRadius()
+    {
+        return rumblingRampageRadius;
+    }
+    public float GetRumblingRampageCooldown()
+    {
+        return rumblingRampageCooldown;
+    }
+    public float GetRumblingRampageDamage()
+    {
+        return rumblingRampageDamage;
+    }
+    public float GetRumblingRampageKnockBackForce()
+    {
+        return rumblingRampageKnockbackForce;
     }
 }

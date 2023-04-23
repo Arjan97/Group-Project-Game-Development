@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     //Health
     [SerializeField] private float currentHealth;
     public float maxHealth = 100f;
+    private bool invincible = false;
     //fireball
     public float fireballDamage = 30f;
     public float fireballDamageOvertime = 4f;
@@ -55,9 +56,12 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
-        StartCoroutine(GetsDamaged());
-        Debug.Log("enemy taking damage, amount:" + damageAmount);
+        if (!invincible)
+        {
+            currentHealth -= damageAmount;
+            StartCoroutine(GetsDamaged());
+            Debug.Log("enemy taking damage, amount:" + damageAmount);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -84,9 +88,11 @@ public class EnemyHealth : MonoBehaviour
     }
     IEnumerator GetsDamaged()
     {
+        invincible = true;
         Color originalColor = GetComponent<Renderer>().material.color;
         GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.2f);
+        invincible = false;
         GetComponent<Renderer>().material.color = originalColor;
 
     }
