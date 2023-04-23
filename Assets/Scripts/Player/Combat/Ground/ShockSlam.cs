@@ -9,30 +9,8 @@ public class ShockSlam : MonoBehaviour
     public float knockbackForce;
     public float stunDuration;
     public float shockSlamCooldownTime;
-    private AbilityManager abilityManager;
 
-    void Start()
-    {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C) && abilityManager.CanUseAbility("ShockSlam"))
-        {
-            Debug.Log("using shock slam");
-            abilityManager.StartAbilityCooldown(shockSlamCooldownTime);
-            ShockSlammer();
-        }
-
-        radius = AbilityManager.instance.GetShockSlamRadius();
-        damage = AbilityManager.instance.GetShockSlamDamage();
-        knockbackForce = AbilityManager.instance.GetShockSlamKnockbackForce();
-        stunDuration = AbilityManager.instance.GetShockSlamStunDuration();
-        shockSlamCooldownTime = AbilityManager.instance.GetShockSlamCooldown();
-    }
-
-    void ShockSlammer()
+    public void ShockSlammer()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);

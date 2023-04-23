@@ -27,7 +27,7 @@ public class GroundSlam : MonoBehaviour
         groundslamCooldownTime = AbilityManager.instance.GetGroundSlamCooldown();
     }
 
-    void GroundSlammer()
+    public void GroundSlammer()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);

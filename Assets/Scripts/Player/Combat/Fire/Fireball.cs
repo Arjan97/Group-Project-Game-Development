@@ -11,22 +11,15 @@ public class Fireball : MonoBehaviour
     public float fireballSpeed = 10f;
     public float fireballCooldownTime = 3f;
 
-    private AbilityManager abilityManager;
+    
 
     void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && abilityManager.CanUseAbility("Fireball"))
-        {
-            FireFireball();
-            abilityManager.StartAbilityCooldown(fireballCooldownTime);
-        }
-    }
-    void FireFireball()
+    
+    public void FireFireball()
     {
         GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = fireball.GetComponent<Rigidbody>();

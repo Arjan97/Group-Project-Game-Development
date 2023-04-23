@@ -8,29 +8,8 @@ public class GroundPound : MonoBehaviour
     public float damage;
     public float groundPoundCooldownTime;
     public float trembleDuration;
-    private AbilityManager abilityManager;
-
-    void Start()
-    {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && abilityManager.CanUseAbility("GroundPound"))
-        {
-            Debug.Log("using ground pound");
-            abilityManager.StartAbilityCooldown(groundPoundCooldownTime);
-            GroundPounder();
-        }
-
-        radius = AbilityManager.instance.GetGroundPoundRadius();
-        damage = AbilityManager.instance.GetGroundPoundDamage();
-        groundPoundCooldownTime = AbilityManager.instance.GetGroundPoundCooldown();
-        trembleDuration = AbilityManager.instance.GetGroundPoundTrembleDuration();
-    }
-
-    void GroundPounder()
+   
+     public void GroundPounder()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);

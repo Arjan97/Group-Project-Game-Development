@@ -7408,6 +7408,7 @@ MonoBehaviour:
   force: 0
   sensitivity: 0.075
   locked: 1
+  speedBoost: 10
 --- !u!54 &302270466
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7550,6 +7551,18 @@ MonoBehaviour:
   knockbackForce: 0
   stunDuration: 0
   shockSlamCooldownTime: 0
+--- !u!114 &302270475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302270461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae92abce3a210a947ae0fdb16ca172e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &303237855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6962052653666131018, guid: ddef51a13789c83489d0f90e7c9cc58b, type: 3}
@@ -27725,23 +27738,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 30
+  m_Constraints: 14
   m_CollisionDetection: 0
---- !u!114 &1064080043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538678762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2433a8a5e8c264b44aae72b95664be9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 302270463}
-  prefabFireball: {fileID: 625741038979228376, guid: e54f696f46345254489deeb991520c7a, type: 3}
-  fireballSpawnPoint: {fileID: 1676364171}
 --- !u!136 &1064080044
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -27768,6 +27766,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996b4dc1a1bd857428aeaf34109b89e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1064080046
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538678762}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5fcea7a7fff348449f9cd5b27282501, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1064080047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538678762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59da974b317508b49b12af6d93ce8fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 302270463}
+--- !u!114 &1064080048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538678762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6047bcac382984247b1f299b85b7a7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 625741038979228376, guid: e54f696f46345254489deeb991520c7a, type: 3}
+  fireballSpawnPoint: {fileID: 1676364171}
+  fireballSpeed: 10
+  fireballCooldownTime: 3
 --- !u!1001 &1064133131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33954,7 +34001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287677507}
   m_LocalRotation: {x: 0.12187231, y: -0.77768695, z: 0.1590616, w: 0.5958604}
-  m_LocalPosition: {x: 3.21, y: 3.8400002, z: 4.48}
+  m_LocalPosition: {x: 3.21, y: 3.8400002, z: 4.4799995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55731,7 +55778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3a327cd7a8cf7b4f980e18bc03b6719, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.48
+      value: 2.4799995
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f3a327cd7a8cf7b4f980e18bc03b6719, type: 3}
       propertyPath: m_LocalRotation.w

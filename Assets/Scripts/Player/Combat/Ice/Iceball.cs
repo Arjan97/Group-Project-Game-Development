@@ -10,24 +10,7 @@ public class Iceball : MonoBehaviour
     public float iceballSpeed = 10f;
     public float iceballCooldownTime = 3f;
 
-    private AbilityManager abilityManager;
-
-
-    void Start()
-    {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1) && abilityManager.CanUseAbility("Iceball"))
-        {
-            FireIceball();
-            abilityManager.StartAbilityCooldown(iceballCooldownTime);
-        }
-    }
-
-    void FireIceball()
+    public void FireIceball()
     {
         GameObject iceball = Instantiate(iceballPrefab, iceballSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = iceball.GetComponent<Rigidbody>();
