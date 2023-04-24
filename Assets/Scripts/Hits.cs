@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Hits : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
     void Update()
     {
 

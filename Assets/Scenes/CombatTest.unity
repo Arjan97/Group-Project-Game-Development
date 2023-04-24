@@ -7551,18 +7551,6 @@ MonoBehaviour:
   knockbackForce: 0
   stunDuration: 0
   shockSlamCooldownTime: 0
---- !u!114 &302270475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302270461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae92abce3a210a947ae0fdb16ca172e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &303237855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6962052653666131018, guid: ddef51a13789c83489d0f90e7c9cc58b, type: 3}
@@ -27815,6 +27803,22 @@ MonoBehaviour:
   fireballSpawnPoint: {fileID: 1676364171}
   fireballSpeed: 10
   fireballCooldownTime: 3
+--- !u!114 &1064080049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538678762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f19f52c361575049a01994534f8b31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iceballPrefab: {fileID: 625741038979228376, guid: 127b6553ae49c8549a8c175cc405c0a5, type: 3}
+  iceballSpawnPoint: {fileID: 1676364171}
+  iceballSpeed: 10
+  iceballCooldownTime: 3
 --- !u!1001 &1064133131
 PrefabInstance:
   m_ObjectHideFlags: 0
