@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class AbilityUI : MonoBehaviour
 {
+    [Header("Misc")]
     [SerializeField] private AbilityManager abilityManager;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private TextMeshProUGUI upgradePointsText;
@@ -14,7 +15,6 @@ public class AbilityUI : MonoBehaviour
     GameObject activePanel = null;
 
     //ability trees
-    public TMP_Dropdown dropdown;
     private AbilityTree fireTree;
     private AbilityTree iceTree;
     private AbilityTree groundTree;
@@ -25,57 +25,79 @@ public class AbilityUI : MonoBehaviour
     [SerializeField] private GameObject groundPanel;
     //groundslam
     [SerializeField] private GameObject groundSlamUnlockButton;
-    [SerializeField] private GameObject groundSlamSelectButton;
-    [SerializeField] private TextMeshProUGUI groundSlamUnlockText;
-    [SerializeField] private GameObject groundSlamUpgradePanel;
-    [SerializeField] private TextMeshProUGUI groundSlamDamageText;
-    [SerializeField] private TextMeshProUGUI groundSlamRadiusText;
-    [SerializeField] private TextMeshProUGUI groundSlamCooldownText;
+    //[SerializeField] private GameObject groundSlamSelectButton;
+    [SerializeField] private GameObject groundSlamUpgrade;
+    [SerializeField] private TextMeshProUGUI groundSlamUpgradeTxt;
     //groundpound
     [SerializeField] private GameObject groundPoundUnlockButton;
-    [SerializeField] private GameObject groundPoundSelectButton;
+    //[SerializeField] private TextMeshProUGUI groundPoundUnlockTxt;
+    //[SerializeField] private GameObject groundPoundSelectButton;
+    [SerializeField] private GameObject groundPoundUpgrade;
+    [SerializeField] private TextMeshProUGUI groundPoundUpgradeTxt;
     //shockslam
     [SerializeField] private GameObject shockSlamUnlockButton;
-    [SerializeField] private GameObject shockSlamSelectButton;
+    //[SerializeField] private TextMeshProUGUI shockSlamUnlockTxt;
+    //[SerializeField] private GameObject shockSlamSelectButton;
+    [SerializeField] private GameObject shockSlamUpgrade;
+    [SerializeField] private TextMeshProUGUI shockSlamUpgradeTxt;
     //swiftstride
     [SerializeField] private GameObject swiftStrideUnlockButton;
-    [SerializeField] private GameObject swiftStrideSelectButton;
+    //[SerializeField] private TextMeshProUGUI swiftStrideUnlockTxt;
+    //[SerializeField] private GameObject swiftStrideSelectButton;
+    [SerializeField] private GameObject swiftStrideUpgrade;
+    [SerializeField] private TextMeshProUGUI swiftStrideUpgradeTxt;
     //rumblingrampage
     [SerializeField] private GameObject rumblingRampageUnlockButton;
-    [SerializeField] private GameObject rumblingRampageSelectButton;
+    //[SerializeField] private TextMeshProUGUI rumblingRampageUnlockTxt;
+    //[SerializeField] private GameObject rumblingRampageSelectButton;
+    [SerializeField] private GameObject rumblingRampageUpgrade;
+    [SerializeField] private TextMeshProUGUI rumblingRampageUpgradeTxt;
+
 
     [Header("Fire Tree")]
     [SerializeField] private GameObject firePanel;
     [SerializeField] private GameObject fireballUnlockButton;
+    //[SerializeField] private GameObject fireballSelectButton;
 
     [Header("Ice Tree")]
     [SerializeField] private GameObject icePanel;
     [SerializeField] private GameObject iceballUnlockButton;
+    //[SerializeField] private GameObject iceballSelectButton;
 
     private void Start()
     {
+        //inits
         GameObject abilityZoneObject = GameObject.FindGameObjectWithTag("AbilityZone");
         abilityZone = abilityZoneObject.GetComponent<AbilityTreeZoneController>();
-
+        fireTree = abilityManager.fireTree;
+        iceTree = abilityManager.iceTree;
+        groundTree = abilityManager.groundTree;
+        //panels
         upgradePanel.SetActive(false);
         groundPanel.SetActive(false);
         icePanel.SetActive(false);
         firePanel.SetActive(false);
-
+        //selects
+        /*
         groundPoundSelectButton.SetActive(false);
         groundSlamSelectButton.SetActive(false);
         shockSlamSelectButton.SetActive(false);
         swiftStrideSelectButton.SetActive(false);
         rumblingRampageSelectButton.SetActive(false);
-
-        fireTree = abilityManager.fireTree;
-        iceTree = abilityManager.iceTree;
-        groundTree = abilityManager.groundTree;
+        fireballSelectButton.SetActive(false);
+        iceballSelectButton.SetActive(false);
+        */
+        //upgrades
+        groundSlamUpgrade.SetActive(false);
+        groundPoundUpgrade.SetActive(false);
+        shockSlamUpgrade.SetActive(false);
+        swiftStrideUpgrade.SetActive(false);
+        rumblingRampageUpgrade.SetActive(false);
     }
 
     private void Update()
     {
-        UpdateUpgradePointsText();
+        UpdateText();
         SwitchTreePanel();
         OpenTree();
     }
@@ -98,17 +120,14 @@ public class AbilityUI : MonoBehaviour
     }
     public void SwitchFire()
     {
-        // Fire tree selected
         AbilityManager.instance.SetActiveAbilityTree(fireTree);
     }
     public void SwitchGround()
     {
-        // Fire tree selected
         AbilityManager.instance.SetActiveAbilityTree(groundTree);
     }
     public void SwitchIce()
     {
-        // Fire tree selected
         AbilityManager.instance.SetActiveAbilityTree(iceTree);
     }
 
@@ -143,135 +162,130 @@ public class AbilityUI : MonoBehaviour
     {
         upgradePanel.SetActive(false);
     }
-
+    private void UpdateText()
+    {
+        //skillpoints
+        upgradePointsText.text = "Skillpoints: " + abilityManager.upgradePoints;
+        //unlock txts
+        //upgrade texts
+        groundSlamUpgradeTxt.text = "Upgrade GroundSlam Lvl." + AbilityManager.instance.GetLevel("GroundSlam");
+        groundPoundUpgradeTxt.text = "Upgrade GroundPound Lvl." + AbilityManager.instance.GetLevel("GroundPound");
+        shockSlamUpgradeTxt.text = "Upgrade ShockSlam Lvl." + AbilityManager.instance.GetLevel("ShockSlam");
+        swiftStrideUpgradeTxt.text = "Upgrade SwiftStride Lvl." + AbilityManager.instance.GetLevel("SwiftStride");
+        rumblingRampageUpgradeTxt.text = "Upgrade RumblingRampage Lvl." + AbilityManager.instance.GetLevel("RumblingRampage");
+    }
     //Unlock abilities
     public void UnlockGroundSlam()
     {
         abilityManager.UnlockAbility("GroundSlam", 0);
-        //abilityManager.SelectAbility("GroundSlam");
-        groundSlamUnlockButton.SetActive(false);
-        groundSlamSelectButton.SetActive(true);
+        if (abilityManager.IsAbilityUnlocked("GroundSlam")){
+            groundSlamUnlockButton.SetActive(false);
+            //groundSlamSelectButton.SetActive(true);
+            groundSlamUpgrade.SetActive(true);
+        }
     }
     public void UnlockShockSlam()
     {
         abilityManager.UnlockAbility("ShockSlam", 40);
-        shockSlamUnlockButton.SetActive(false);
-        shockSlamSelectButton.SetActive(true);
+        if (abilityManager.IsAbilityUnlocked("ShockSlam"))
+        {
+            shockSlamUnlockButton.SetActive(false);
+            //shockSlamSelectButton.SetActive(true);
+            shockSlamUpgrade.SetActive(true);
+        }
     }
     public void UnlockGroundPound()
     {
-        abilityManager.UnlockAbility("GroundPound", 30);
-        groundPoundUnlockButton.SetActive(false);
-        groundPoundSelectButton.SetActive(true);
+        abilityManager.UnlockAbility("GroundPound", 20);
+        if (abilityManager.IsAbilityUnlocked("GroundPound"))
+        {
+            groundPoundUnlockButton.SetActive(false);
+            //groundPoundSelectButton.SetActive(true);
+            groundPoundUpgrade.SetActive(true);
+        }
     }
     public void UnlockSwiftStride()
     {
         abilityManager.UnlockAbility("SwiftStride", 30);
-        swiftStrideUnlockButton.SetActive(false);
-        swiftStrideSelectButton.SetActive(true);
+        if (abilityManager.IsAbilityUnlocked("SwiftStride"))
+        {
+            swiftStrideUnlockButton.SetActive(false);
+            //swiftStrideSelectButton.SetActive(true);
+            swiftStrideUpgrade.SetActive(true);
+        }
     }
     public void UnlockRumblingRampage()
     {
-        abilityManager.UnlockAbility("RumblingRampage", 60);
-        rumblingRampageUnlockButton.SetActive(false);
-        rumblingRampageSelectButton.SetActive(true);
+        abilityManager.UnlockAbility("RumblingRampage", 50);
+        if (abilityManager.IsAbilityUnlocked("RumblingRampage"))
+        {
+            rumblingRampageUnlockButton.SetActive(false);
+            //rumblingRampageSelectButton.SetActive(true);
+            rumblingRampageUpgrade.SetActive(true);
+        }
     }
     public void UnlockFireball()
     {
         abilityManager.UnlockAbility("Fireball", 0);
         fireballUnlockButton.SetActive(false);
+        //fireballSelectButton.SetActive(true);
     }
     public void UnlockIceball()
     {
         abilityManager.UnlockAbility("Iceball", 0);
         iceballUnlockButton.SetActive(false);
+        //iceballSelectButton.SetActive(true);
     }
     //select abils
+    /*
     public void SelectGroundSlam()
     {
         abilityManager.SelectAbility("GroundSlam");
-        if (abilityManager.selectedAbilities.Contains("GroundSlam"))
-        {
-            ColorBlock colors = groundSlamSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.green;
-            groundSlamSelectButton.GetComponent<Button>().colors = colors;
-        }
-        else
-        {
-            ColorBlock colors = groundSlamSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.red;
-            groundSlamSelectButton.GetComponent<Button>().colors = colors;
-        }
     }
     public void SelectShockSlam()
     {
         abilityManager.SelectAbility("ShockSlam");
-        if (abilityManager.selectedAbilities.Contains("ShockSlam"))
-        {
-            ColorBlock colors = shockSlamSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.green;
-            shockSlamSelectButton.GetComponent<Button>().colors = colors;
-        }
-        else
-        {
-            ColorBlock colors = shockSlamSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.red;
-            shockSlamSelectButton.GetComponent<Button>().colors = colors;
-        }
     }
     public void SelectGroundPound()
     {
         abilityManager.SelectAbility("GroundPound");
-        if (abilityManager.selectedAbilities.Contains("GroundPound"))
-        {
-            ColorBlock colors = groundPoundSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.green;
-            groundPoundSelectButton.GetComponent<Button>().colors = colors;
-        }
-        else
-        {
-            ColorBlock colors = groundPoundSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.red;
-            groundPoundSelectButton.GetComponent<Button>().colors = colors;
-        }
     }
     public void SelectSwiftStride()
     {
         abilityManager.SelectAbility("SwiftStride");
-        if (abilityManager.selectedAbilities.Contains("SwiftStride"))
-        {
-            ColorBlock colors = swiftStrideSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.green;
-            swiftStrideSelectButton.GetComponent<Button>().colors = colors;
-        }
-        else
-        {
-            ColorBlock colors = swiftStrideSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.red;
-            swiftStrideSelectButton.GetComponent<Button>().colors = colors;
-        }
     }
     public void SelectRumblingRampage()
     {
         abilityManager.SelectAbility("RumblingRampage");
-        if (abilityManager.selectedAbilities.Contains("RumblingRampage"))
-        {
-            ColorBlock colors = rumblingRampageSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.green;
-            rumblingRampageSelectButton.GetComponent<Button>().colors = colors;
-        }
-        else
-        {
-            ColorBlock colors = rumblingRampageSelectButton.GetComponent<Button>().colors;
-            colors.normalColor = Color.red;
-            rumblingRampageSelectButton.GetComponent<Button>().colors = colors;
-        }
     }
-    //upgrade abils
-
-    private void UpdateUpgradePointsText()
+    public void SelectFireball()
     {
-        upgradePointsText.text = "Skillpoints: " + abilityManager.upgradePoints;
+        abilityManager.SelectAbility("Fireball");
+    }
+    public void SelectIceball()
+    {
+        abilityManager.SelectAbility("Iceball");
+    } */
+    //upgrade abils
+    public void UpgradeGroundSlam()
+    {
+        abilityManager.UpgradeValues("GroundSlam", 5, 1, 1, 0, 0, 0);
+    }
+    public void UpgradeGroundPound()
+    {
+        abilityManager.UpgradeValues("GroundPound", 10, 1, 1, 0.5f, 0, 0);
+    }
+    public void UpgradeShockSlam()
+    {
+        abilityManager.UpgradeValues("ShockSlam", 5, 1, 1, 0.5f, 0.5f, 0);
+    }
+    public void UpgradeSwiftStride()
+    {
+        abilityManager.UpgradeValues("SwiftStride", 5, 1, 1, 0, 0.5f, 0.5f);
+    }
+    public void UpgradeRumblingRampage()
+    {
+        abilityManager.UpgradeValues("RumblingRampage", 12, 1, 1, 0, 1, 0);
     }
 
 }

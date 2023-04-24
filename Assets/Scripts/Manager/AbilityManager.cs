@@ -43,8 +43,8 @@ public class AbilityManager : MonoBehaviour
     public AbilityTree fireTree;
     public AbilityTree playerAbilityTree;
     // Ability selection
-    public List<string> selectedAbilities = new List<string>();
-    public int maxSelectedAbilities = 2;
+    //public List<string> selectedAbilities = new List<string>();
+    //public int maxSelectedAbilities = 2;
     // UI
     public AbilityUI abilityUpgradeUI;
     void Awake()
@@ -63,7 +63,7 @@ public class AbilityManager : MonoBehaviour
     {
         // Initialize default values
         playerAbilityTree = groundTree;
-
+        maxAbilityLevel = 5;
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
@@ -110,17 +110,7 @@ public class AbilityManager : MonoBehaviour
     }
     public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) && selectedAbilities.Contains(abilityName);
-    }
-    public void SetDefaultValues(string abilityName)
-    {
-        damageValues[abilityName] = defaultDamage;
-        radiusValues[abilityName] = defaultRadius;
-        cooldownValues[abilityName] = defaultCooldown;
-        levelValues[abilityName] = defaultLevel;
-        durationValues[abilityName] = defaultDuration;
-        knockBackForceValues[abilityName] = defaultKnockBackForce;
-        boostAmountValues[abilityName] = defaultBoostAmount;
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) /*&& selectedAbilities.Contains(abilityName)*/;
     }
     public void SetValues(string abilityName, float damage, float radius, float cooldown, float level, float duration, float knockBackForce, float boostAmount)
     {
@@ -131,41 +121,21 @@ public class AbilityManager : MonoBehaviour
         durationValues[abilityName] = duration;
         knockBackForceValues[abilityName] = knockBackForce;
         boostAmountValues[abilityName] = boostAmount;
-    }
-    public void UpgradeAbility(string abilityName, Ability abil)
-    {
-        if (upgradePoints > 0 && unlockedAbilities[abilityName])
-        {
-            abilityName = abil.GetAbility();
-            if (abilityName != null)
-            {
-                if (abil.level < maxAbilityLevel)
-                {
-                    // Call the UpgradeStat function with the desired stat and amount to upgrade
-                    abil.UpgradeStat("Damage", 10f);
-                    abil.UpgradeStat("Radius", 1f);
-                    abil.UpgradeStat("CooldownTime", -1f);
 
-                    upgradePoints--;
-                    Debug.Log("Upgraded " + abilityName + " damage to level " + abil.level);
-                }
-                else
-                {
-                    Debug.Log(abilityName + " is already at max level");
-                }
-            }
-            else
-            {
-                Debug.Log("Invalid ability name");
-            }
-        }
-        else if (!unlockedAbilities[abilityName])
+        //Debug.Log(abilityName + " setting start... damage =: " + damageValues[abilityName]);
+    }
+    public void UpgradeValues(string abilityName, float damage, float radius, float cooldown, float duration, float knockBackForce, float boostAmount)
+    {
+        if (upgradePoints > 0 && unlockedAbilities[abilityName] && levelValues[abilityName] < maxAbilityLevel)
         {
-            Debug.Log("You have not unlocked " + abilityName + " yet");
-        }
-        else
-        {
-            Debug.Log("You do not have enough upgrade points");
+            damageValues[abilityName] += damage;
+            radiusValues[abilityName] += radius;
+            cooldownValues[abilityName] -= cooldown;
+            levelValues[abilityName]++;
+            durationValues[abilityName] += duration;
+            knockBackForceValues[abilityName] += knockBackForce;
+            boostAmountValues[abilityName] += boostAmount;
+            Debug.Log(abilityName + " upgrade to level: " + levelValues[abilityName]);
         }
     }
     public bool IsAbilityUnlocked(string abilityName)
@@ -213,6 +183,7 @@ public class AbilityManager : MonoBehaviour
     {
         upgradePoints -= cost;
     }
+    /*
     public void SelectAbility(string abilityName)
     {
         if (!selectedAbilities.Contains(abilityName))
@@ -232,7 +203,7 @@ public class AbilityManager : MonoBehaviour
             selectedAbilities.Remove(abilityName);
             Debug.Log("Deselected ability: " + abilityName);
         }
-    }
+    } */
     // Get the values for a specific ability
     public float GetDamage(string abilityName)
     {

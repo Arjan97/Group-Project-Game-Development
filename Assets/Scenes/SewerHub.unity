@@ -7216,6 +7216,7 @@ MonoBehaviour:
   force: 0
   sensitivity: 0.075
   locked: 1
+  speedBoost: 10
 --- !u!54 &302270466
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7290,10 +7291,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047bcac382984247b1f299b85b7a7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownTime: 0
+  damage: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
   fireballPrefab: {fileID: 625741038979228376, guid: e54f696f46345254489deeb991520c7a, type: 3}
   fireballSpawnPoint: {fileID: 1891811}
   fireballSpeed: 10
-  fireballCooldownTime: 3
 --- !u!114 &302270471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7306,9 +7315,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faede1216dce1fd44bfc0b857a5d1c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2
-  damage: 60
-  groundslamCooldownTime: 3
+  cooldownTime: 0
+  damage: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
 --- !u!114 &302270472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7321,10 +7336,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f19f52c361575049a01994534f8b31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownTime: 0
+  damage: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
   iceballPrefab: {fileID: 625741038979228376, guid: 127b6553ae49c8549a8c175cc405c0a5, type: 3}
   iceballSpawnPoint: {fileID: 1891811}
   iceballSpeed: 10
-  iceballCooldownTime: 3
 --- !u!114 &302270473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7337,10 +7360,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ca663817490c42ba54bc454dddc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
+  cooldownTime: 0
   damage: 0
-  groundPoundCooldownTime: 0
-  trembleDuration: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
 --- !u!114 &302270474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7353,11 +7381,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0652d3f8d119f0345ac7c07e22f598c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
+  cooldownTime: 0
   damage: 0
+  radius: 0
+  duration: 0
   knockbackForce: 0
-  stunDuration: 0
-  shockSlamCooldownTime: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
+--- !u!114 &302270475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302270461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02cfcbb48c81b314b84e750eda2dac6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 0
+  damage: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
+--- !u!114 &302270476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302270461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8086c2ccc96e71a46b49e3da93f1d47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 0
+  damage: 0
+  radius: 0
+  duration: 0
+  knockbackForce: 0
+  level: 0
+  boostAmount: 0
+  activationKey: 0
+  abilityName: 
 --- !u!4 &303237855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6962052653666131018, guid: ddef51a13789c83489d0f90e7c9cc58b, type: 3}
@@ -24865,7 +24939,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -24890,8 +24964,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.16034079, y: 0.000008150347, z: -0.0000013239628, w: 0.98706174}
-  m_LocalPosition: {x: -0.40204513, y: 1.4276485, z: -8.16095}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.055954814, y: 1.0376487, z: -4.170949}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33731,7 +33805,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287677507}
-  m_LocalRotation: {x: 0.12189022, y: -0.77761984, z: 0.15904787, w: 0.5959479}
+  m_LocalRotation: {x: 0.12157094, y: -0.7788137, z: 0.15929204, w: 0.594387}
   m_LocalPosition: {x: 3.21, y: 3.8400002, z: 4.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -40082,9 +40156,7 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 1547214344}
   m_LayerIndex: 0
   m_ShowDebugText: 1
-  m_ChildCameras:
-  - {fileID: 661421503}
-  - {fileID: 1287677509}
+  m_ChildCameras: []
   m_Instructions:
   - m_FullHash: 1036624748
     m_VirtualCamera: {fileID: 661421503}
