@@ -32,7 +32,7 @@ public class MovementAI : MonoBehaviour
     private float randomDegrees;
 
     /* When the agent is within this range of its destination, it gets a new destination */
-    private float arrivingRange = 2;
+    private float arrivingRange = 2f;
 
     void Start()
     {
@@ -131,7 +131,7 @@ public class MovementAI : MonoBehaviour
         Vector3 forwardDirection = transform.forward;
 
         /* Get a rotation of randomDegrees around the Y-axis */
-        Quaternion rotatedAngle = Quaternion.AngleAxis(randomDegrees, new Vector3(0, 1, 0));
+        Quaternion rotatedAngle = Quaternion.AngleAxis(randomDegrees, transform.up);
 
         /* Get the new angle by rotating rotatedAngle amount in the forward facing direction */
         Vector3 newAngle = rotatedAngle * forwardDirection;
