@@ -34,6 +34,9 @@ public class MovementAI : MonoBehaviour
     /* When the agent is within this range of its destination, it gets a new destination */
     private float arrivingRange = 2f;
 
+    public bool chasing;
+    public bool patrolling;
+
     void Start()
     {
         /* Get the navMeshAgent component */
@@ -72,6 +75,11 @@ public class MovementAI : MonoBehaviour
 
         /* Call the SetDestination method with the new targetvector as parameter to move towards the new vector*/
         agent.SetDestination(targetVector);
+    }
+
+    private void ChasePlayer()
+    {
+
     }
    
     /// <summary>
