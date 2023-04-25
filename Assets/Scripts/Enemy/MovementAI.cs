@@ -24,7 +24,7 @@ public class MovementAI : MonoBehaviour
     [SerializeField] private float angleMax = 90f;
 
     /* The length of the path of the agent before getting a new path */
-    [SerializeField] private float pathLength = 250f;
+    [SerializeField] private float pathLength = 10;
 
     [SerializeField] private float rotateSpeed = 5f;  
 

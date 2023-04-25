@@ -34001,7 +34001,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287677507}
-  m_LocalRotation: {x: 0.088739514, y: -0.8784111, z: 0.17966288, w: 0.4338669}
+  m_LocalRotation: {x: 0.115227, y: -0.80153644, z: 0.1639396, w: 0.56337}
   m_LocalPosition: {x: 3.21, y: 3.8400002, z: 4.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41524,14 +41524,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576513913}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5f791c4e51335d4aa9a608d1cbfd745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angleMin: -90
   angleMax: 90
-  pathLength: 250
+  pathLength: 10
   rotateSpeed: 5
 --- !u!195 &1576513917
 NavMeshAgent:
