@@ -20,61 +20,31 @@ public class AbilityManager : MonoBehaviour
     { "RumblingRampage", false },
     { "Iceball", false },
     { "Fireball", false }};
+
+    private Dictionary<string, float> damageValues = new Dictionary<string, float>();
+    private Dictionary<string, float> radiusValues = new Dictionary<string, float>();
+    private Dictionary<string, float> cooldownValues = new Dictionary<string, float>();
+    private Dictionary<string, float> levelValues = new Dictionary<string, float>();
+    private Dictionary<string, float> durationValues = new Dictionary<string, float>();
+    private Dictionary<string, float> knockBackForceValues = new Dictionary<string, float>();
+    private Dictionary<string, float> boostAmountValues = new Dictionary<string, float>();
+
+    private int maxAbilityLevel;
+    public float defaultDamage = 20f;
+    public float defaultRadius = 3f;
+    public float defaultCooldown = 5f;
+    public float defaultLevel = 1;
+    public float defaultDuration = 0;
+    public float defaultKnockBackForce = 0;
+    public float defaultBoostAmount = 0;
     // Ability trees
     public AbilityTree groundTree;
     public AbilityTree iceTree;
     public AbilityTree fireTree;
     public AbilityTree playerAbilityTree;
     // Ability selection
-    public List<string> selectedAbilities = new List<string>();
-    public int maxSelectedAbilities = 2;
-    // Groundslam ability
-    public int groundSlamDamageLevel { get; set; }
-    public int groundSlamRadiusLevel { get; set; }
-    public int groundSlamCooldownLevel { get; set; }
-    public float groundSlamDamage { get; private set; }
-    public float groundSlamRadius { get; private set; }
-    public float groundSlamCooldown { get; private set; }
-
-    //GroundPound abil
-    public int groundPoundDamageLevel { get; set; }
-    public int groundPoundRadiusLevel { get; set; }
-    public int groundPoundCooldownLevel { get; set; }
-    public int groundPoundTrembleDurationLevel { get; set; }
-    public float groundPoundDamage { get; private set; }
-    public float groundPoundRadius { get; private set; }
-    public float groundPoundCooldown { get; private set; }
-    public int groundPoundTrembleDuration { get; private set; }
-
-    //shockslam abil
-    public int shockSlamDamageLevel { get; set; }
-    public int shockSlamRadiusLevel { get; set; }
-    public int shockSlamCooldownLevel { get; set; }
-    public int shockSlamStunDurationLevel { get; set; }
-    public int shockSlamKnockbackForceLevel { get; set; }
-    public float shockSlamDamage { get; private set; }
-    public float shockSlamRadius { get; private set; }
-    public float shockSlamCooldown { get; private set; }
-    public float shockSlamStunDuration { get; private set; }
-    public float shockSlamKnockbackForce { get; private set; }
-
-    //swiftstride abil 
-    public int swiftStrideDamageLevel { get; set; }
-    public int swiftStrideRadiusLevel { get; set; }
-    public int swiftStrideCooldownLevel { get; set; }
-    public int swiftStrideSpeedBoostDurationLevel { get; set; }
-    public int swiftStrideSpeedBoostAmountLevel { get; set; }
-    public float swiftStrideDamage { get; private set; }
-    public float swiftStrideRadius { get; private set; }
-    public float swiftStrideCooldown { get; private set; }
-    public float swiftStrideSpeedBoostDuration { get; private set; }
-    public float swiftStrideSpeedBoostAmount { get; private set; }
-
-    //rumblingrampage
-    public float rumblingRampageDamage { get; private set; }
-    public float rumblingRampageRadius { get; private set; }
-    public float rumblingRampageCooldown { get; private set; }
-    public float rumblingRampageKnockbackForce { get; private set; }
+    //public List<string> selectedAbilities = new List<string>();
+    //public int maxSelectedAbilities = 2;
     // UI
     public AbilityUI abilityUpgradeUI;
     void Awake()
@@ -93,46 +63,7 @@ public class AbilityManager : MonoBehaviour
     {
         // Initialize default values
         playerAbilityTree = groundTree;
-
-        groundSlamDamageLevel = 1;
-        groundSlamRadiusLevel = 1;
-        groundSlamCooldownLevel = 1;
-
-        groundSlamDamage = 30f;
-        groundSlamRadius = 2f;
-        groundSlamCooldown = 4f;
-
-        groundPoundCooldownLevel= 1;
-        groundPoundDamageLevel= 1;
-        groundPoundRadiusLevel= 1;
-        groundPoundTrembleDurationLevel= 1;
-
-        groundPoundDamage= 15f;
-        groundPoundRadius= 4;
-        groundPoundCooldown = 10f;
-        groundPoundTrembleDuration = 5;
-
-        shockSlamDamage = 20f;
-        shockSlamRadius = 3;
-        shockSlamCooldown = 8;
-        shockSlamKnockbackForce = 2f;
-
-        swiftStrideDamageLevel = 1;
-        swiftStrideRadiusLevel=1;
-        swiftStrideCooldownLevel = 1;
-        swiftStrideSpeedBoostAmountLevel = 1;
-        swiftStrideSpeedBoostDurationLevel= 1;
-        swiftStrideCooldown = 6;
-        swiftStrideDamage = 20;
-        swiftStrideRadius = 5;
-        swiftStrideSpeedBoostAmount = 20; 
-        swiftStrideSpeedBoostDuration=3;
-
-        rumblingRampageCooldown = 8;
-        rumblingRampageDamage = 50;
-        rumblingRampageKnockbackForce = 4f;
-        rumblingRampageRadius = 3;
-
+        maxAbilityLevel = 5;
         // Create ability trees and add abilities
         groundTree = new AbilityTree("Ground");
         groundTree.AddAbility("GroundSlam");
@@ -179,7 +110,33 @@ public class AbilityManager : MonoBehaviour
     }
     public bool CanUseAbility(string abilityName)
     {
-        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) && selectedAbilities.Contains(abilityName);
+        return abilityCooldownTimer <= 0f && unlockedAbilities[abilityName] && playerAbilityTree.IsAbilityInActiveTree(abilityName) /*&& selectedAbilities.Contains(abilityName)*/;
+    }
+    public void SetValues(string abilityName, float damage, float radius, float cooldown, float level, float duration, float knockBackForce, float boostAmount)
+    {
+        damageValues[abilityName] = damage;
+        radiusValues[abilityName] = radius;
+        cooldownValues[abilityName] = cooldown;
+        levelValues[abilityName] = level;
+        durationValues[abilityName] = duration;
+        knockBackForceValues[abilityName] = knockBackForce;
+        boostAmountValues[abilityName] = boostAmount;
+
+        //Debug.Log(abilityName + " setting start... damage =: " + damageValues[abilityName]);
+    }
+    public void UpgradeValues(string abilityName, float damage, float radius, float cooldown, float duration, float knockBackForce, float boostAmount)
+    {
+        if (upgradePoints > 0 && unlockedAbilities[abilityName] && levelValues[abilityName] < maxAbilityLevel)
+        {
+            damageValues[abilityName] += damage;
+            radiusValues[abilityName] += radius;
+            cooldownValues[abilityName] -= cooldown;
+            levelValues[abilityName]++;
+            durationValues[abilityName] += duration;
+            knockBackForceValues[abilityName] += knockBackForce;
+            boostAmountValues[abilityName] += boostAmount;
+            Debug.Log(abilityName + " upgrade to level: " + levelValues[abilityName]);
+        }
     }
     public bool IsAbilityUnlocked(string abilityName)
     {
@@ -226,6 +183,7 @@ public class AbilityManager : MonoBehaviour
     {
         upgradePoints -= cost;
     }
+    /*
     public void SelectAbility(string abilityName)
     {
         if (!selectedAbilities.Contains(abilityName))
@@ -245,118 +203,90 @@ public class AbilityManager : MonoBehaviour
             selectedAbilities.Remove(abilityName);
             Debug.Log("Deselected ability: " + abilityName);
         }
-    }
-
-    //Groundslam ability upgrades
-
-    public void UpgradeGroundSlamDamage(float amount)
+    } */
+    // Get the values for a specific ability
+    public float GetDamage(string abilityName)
     {
-        groundSlamDamage += amount;
+        if (damageValues.ContainsKey(abilityName))
+        {
+            return damageValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultDamage;
+        }
     }
-
-    public void UpgradeGroundSlamRadius(float amount)
+    public float GetRadius(string abilityName)
     {
-        groundSlamRadius += amount;
+        if (radiusValues.ContainsKey(abilityName))
+        {
+            return radiusValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultRadius;
+        }
     }
-
-    public void UpgradeGroundSlamCooldown(float amount)
+    public float GetCooldown(string abilityName)
     {
-        groundSlamCooldown -= amount;
+        if (cooldownValues.ContainsKey(abilityName))
+        {
+            return cooldownValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultCooldown;
+        }
     }
-
-    public float GetGroundSlamDamage()
+    public float GetLevel(string abilityName)
     {
-        return groundSlamDamage;
+        if (levelValues.ContainsKey(abilityName))
+        {
+            return levelValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultLevel;
+        }
     }
-
-    public float GetGroundSlamRadius()
+    public float GetDuration(string abilityName)
     {
-        return groundSlamRadius;
+        if (durationValues.ContainsKey(abilityName))
+        {
+            return durationValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultDuration;
+        }
     }
-
-    public float GetGroundSlamCooldown()
+    public float GetKnockBackForce(string abilityName)
     {
-        return groundSlamCooldown;
+        if (knockBackForceValues.ContainsKey(abilityName))
+        {
+            return knockBackForceValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultKnockBackForce;
+        }
     }
-
-    //groundpound 
-    public float GetGroundPoundDamage()
+    public float GetBoostAmount(string abilityName)
     {
-        return groundPoundDamage;
-    }
-
-    public float GetGroundPoundRadius()
-    {
-        return groundPoundRadius;
-    }
-
-    public float GetGroundPoundCooldown()
-    {
-        return groundPoundCooldown;
-    }
-
-    public float GetGroundPoundTrembleDuration()
-    {
-        return groundPoundTrembleDuration;
-    }
-
-    //shockslam
-
-    public float GetShockSlamRadius() {
-        return shockSlamRadius;
-    }
-    public float GetShockSlamDamage() {
-    return shockSlamDamage;
-    }
-    public float GetShockSlamKnockbackForce()
-    {
-return shockSlamKnockbackForce;
-    }
-    public float GetShockSlamStunDuration()
-    {
-        return shockSlamStunDuration;
-    }
-    public float GetShockSlamCooldown()
-    {
-        return shockSlamCooldown;
-    }
-
-    //swiftstride
-    public float GetSwiftStrideRadius()
-    {
-        return swiftStrideRadius;
-    }
-    public float GetSwiftStrideCooldown()
-    {
-        return swiftStrideCooldown;
-    }
-    public float GetSwiftStrideDamage()
-    {
-        return swiftStrideDamage;
-    }
-    public float GetSwiftStrideSpeedBoostDuration()
-    {
-        return swiftStrideSpeedBoostDuration;
-    }
-    public float GetSwiftStrideSpeedBoostAmount()
-    {
-        return swiftStrideSpeedBoostAmount;
-    }
-    //rumblingrampage
-    public float GetRumblingRampageRadius()
-    {
-        return rumblingRampageRadius;
-    }
-    public float GetRumblingRampageCooldown()
-    {
-        return rumblingRampageCooldown;
-    }
-    public float GetRumblingRampageDamage()
-    {
-        return rumblingRampageDamage;
-    }
-    public float GetRumblingRampageKnockBackForce()
-    {
-        return rumblingRampageKnockbackForce;
+        if (boostAmountValues.ContainsKey(abilityName))
+        {
+            return boostAmountValues[abilityName];
+        }
+        else
+        {
+            Debug.Log("Ability not found: " + abilityName);
+            return defaultBoostAmount;
+        }
     }
 }

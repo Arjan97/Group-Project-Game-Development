@@ -1,32 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
-
-public class Fireball : MonoBehaviour
+public class Fireball : Ability
 {
     public GameObject fireballPrefab;
     public Transform fireballSpawnPoint;
     public float fireballSpeed = 10f;
-    public float fireballCooldownTime = 3f;
 
-    private AbilityManager abilityManager;
-
-    void Start()
+    protected override void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        activationKey = KeyCode.Space;
+        abilityName = "Fireball";
+        base.Start();
     }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && abilityManager.CanUseAbility("Fireball"))
-        {
-            FireFireball();
-            abilityManager.StartAbilityCooldown(fireballCooldownTime);
-        }
-    }
-    void FireFireball()
+    protected override void Activate()
     {
         GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = fireball.GetComponent<Rigidbody>();

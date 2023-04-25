@@ -2,35 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundPound : MonoBehaviour
+public class GroundPound : Ability
 {
-    public float radius;
-    public float damage;
-    public float groundPoundCooldownTime;
-    public float trembleDuration;
-    private AbilityManager abilityManager;
-
-    void Start()
+    protected override void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        activationKey = KeyCode.Z; 
+        abilityName = "GroundPound";
+        base.Start();
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V) && abilityManager.CanUseAbility("GroundPound"))
-        {
-            Debug.Log("using ground pound");
-            abilityManager.StartAbilityCooldown(groundPoundCooldownTime);
-            GroundPounder();
-        }
-
-        radius = AbilityManager.instance.GetGroundPoundRadius();
-        damage = AbilityManager.instance.GetGroundPoundDamage();
-        groundPoundCooldownTime = AbilityManager.instance.GetGroundPoundCooldown();
-        trembleDuration = AbilityManager.instance.GetGroundPoundTrembleDuration();
-    }
-
-    void GroundPounder()
+    protected override void Activate()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
@@ -45,7 +25,7 @@ public class GroundPound : MonoBehaviour
                 EnemyMovement enemy = collider.GetComponent<EnemyMovement>();
                 if (enemy != null)
                 {
-                    enemy.ApplyTrembleEffect(trembleDuration);
+                    enemy.ApplyTrembleEffect(duration);
                 }
             }
         }

@@ -3,31 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Iceball : MonoBehaviour
+public class Iceball : Ability
 {
     public GameObject iceballPrefab;
     public Transform iceballSpawnPoint;
     public float iceballSpeed = 10f;
-    public float iceballCooldownTime = 3f;
-
-    private AbilityManager abilityManager;
-
-
-    void Start()
+    protected override void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        activationKey = KeyCode.Space;
+        abilityName = "Iceball";
+        base.Start();
     }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1) && abilityManager.CanUseAbility("Iceball"))
-        {
-            FireIceball();
-            abilityManager.StartAbilityCooldown(iceballCooldownTime);
-        }
-    }
-
-    void FireIceball()
+    protected override void Activate()
     {
         GameObject iceball = Instantiate(iceballPrefab, iceballSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = iceball.GetComponent<Rigidbody>();

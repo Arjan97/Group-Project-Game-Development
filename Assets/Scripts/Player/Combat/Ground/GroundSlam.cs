@@ -2,32 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundSlam : MonoBehaviour
+public class GroundSlam : Ability
 {
-    public float radius;
-    public float damage;
-    public float groundslamCooldownTime;
-
-    private AbilityManager abilityManager;
-
-    void Start()
+    protected override void Start()
     {
-        abilityManager = GameObject.FindObjectOfType<AbilityManager>();
+        activationKey = KeyCode.Space;
+        abilityName = "GroundSlam";
+        base.Start();
     }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && abilityManager.CanUseAbility("GroundSlam"))
-        {
-            abilityManager.StartAbilityCooldown(groundslamCooldownTime);
-            GroundSlammer();
-        }
-
-        radius = AbilityManager.instance.GetGroundSlamRadius();
-        damage = AbilityManager.instance.GetGroundSlamDamage();
-        groundslamCooldownTime = AbilityManager.instance.GetGroundSlamCooldown();
-    }
-
-    void GroundSlammer()
+    protected override void Activate()
     {
         // Detect nearby enemies and damage them
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
