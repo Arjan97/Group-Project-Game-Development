@@ -28,11 +28,13 @@ public class MovementAI : MonoBehaviour
     /* The length of the path of the agent before getting a new path */
     [SerializeField] private float pathLength = 250f;
 
+    [SerializeField] private float rotateSpeed = 5f; 
+
     /* Float to store the new angle for a new direction, calculated randomly between angleMin and angleMax */
     private float randomDegrees;
 
     /* When the agent is within this range of its destination, it gets a new destination */
-    private float arrivingRange = 3;
+    private float arrivingRange = 2;
 
     private bool nearEdge = false;
 
@@ -45,86 +47,22 @@ public class MovementAI : MonoBehaviour
 
         /* Give the agent a new destination at start */
         NewDestination();
-
-        Debug.Log("Terrain min x: " + terrain.bounds.min.x);
-        Debug.Log("Terrain max x: " + terrain.bounds.max.x);
-        Debug.Log("Terrain min z: " + terrain.bounds.min.z);
-        Debug.Log("Terrain max z: " + terrain.bounds.max.z);
     }
 
     void Update()
     {
-        //NearTerrainEdge();
-
-        /* Draw a ray in the forward moving direction */
-        //Debug.DrawLine(transform.position + new Vector3(0, 1), transform.forward, color: Color.blue);
+        RotateTowards(targetVector);
 
         float distanceFromTarget = Vector3.Distance(transform.position, targetVector);
 
         /* Check if the agent is within arrivingRange of its target */
         if (distanceFromTarget <= arrivingRange)
         {
-            if (distanceFromTarget <= arrivingRange)
-            {
-                //KIf the distance if very small
-                // The object needs to rotate, because it is near a corner
-
-                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
-
-                //Quaternion.RotateTowards(transform.rotation, targetRotation, 50f);
-
-                if (transform.rotation == targetRotation)
-                {
-                    Debug.Log("Je moeder");
-
-                    NewDestination();
-                }
-            }
-            else
-            {
-                //Call new destination
-                NewDestination();
-            }
-            
+            NewDestination();
         }
+
+        /* Draw a white line in the editor to see where the targetvector is */
         Debug.DrawLine(transform.position, targetVector, Color.white);
-
-        //RotateTowards(targetVector);
-    }
-
-    private void NearTerrainEdge()
-    {
-        //if forward ray hits a wall, and the distance < x then rotate the gamobject and call newDestination
-        //If the object is near bounds, rotate object and call new destination
-
-        //Edge: 
-        float px = transform.position.x;
-        float pz = transform.position.z;
-
-        float xMin = terrain.bounds.min.x;
-        float xMax = terrain.bounds.max.x;
-        float zMin = terrain.bounds.min.z;
-        float zMax = terrain.bounds.max.z;
-
-        float rangeOffset = 1.5f;
-
-
-        if (px < xMin + rangeOffset || px > xMax - rangeOffset || pz < zMin + rangeOffset || pz > zMax - rangeOffset)
-        {
-            Debug.Log("Near edge ");
-
-            if (nearEdge == false)
-            {
-                transform.Rotate(transform.up, 180 * Time.deltaTime);
-
-                nearEdge = true;
-
-                NewDestination();
-            }
-        } else
-        {
-            nearEdge = false;
-        }
     }
 
     /// <summary>
@@ -137,21 +75,15 @@ public class MovementAI : MonoBehaviour
 
         /* Call the SetDestination method with the new targetvector as parameter to move towards the new vector*/
         agent.SetDestination(targetVector);
-
-        //RotateTowards(targetVector);
     }
    
     private void RotateTowards(Vector3 target)
     {
         Vector3 direction = target - transform.position;
 
-        direction.y = 0f;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        Quaternion directionRot = Quaternion.Euler(direction);
-        
-        Quaternion rotation = Quaternion.RotateTowards(transform.rotation ,directionRot, 180);
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5 * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
     }
 
     /// <summary>
