@@ -13,8 +13,6 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MovementAI : MonoBehaviour
 {
-    public MeshRenderer terrain;
-
     /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
 
@@ -28,17 +26,13 @@ public class MovementAI : MonoBehaviour
     /* The length of the path of the agent before getting a new path */
     [SerializeField] private float pathLength = 250f;
 
-    [SerializeField] private float rotateSpeed = 5f; 
+    [SerializeField] private float rotateSpeed = 5f;  
 
     /* Float to store the new angle for a new direction, calculated randomly between angleMin and angleMax */
     private float randomDegrees;
 
     /* When the agent is within this range of its destination, it gets a new destination */
     private float arrivingRange = 2;
-
-    private bool nearEdge = false;
-
-    private Quaternion targetRotation;
 
     void Start()
     {
@@ -51,13 +45,16 @@ public class MovementAI : MonoBehaviour
 
     void Update()
     {
+        /* Rotate towards the moving direction */
         RotateTowards(targetVector);
 
+        /* Get the distance between the targetVector and the current position */
         float distanceFromTarget = Vector3.Distance(transform.position, targetVector);
 
         /* Check if the agent is within arrivingRange of its target */
         if (distanceFromTarget <= arrivingRange)
         {
+            /* Call method to get a new destination if it is close */
             NewDestination();
         }
 
@@ -77,13 +74,20 @@ public class MovementAI : MonoBehaviour
         agent.SetDestination(targetVector);
     }
    
+    /// <summary>
+    /// Method to rotate the object towards the given target
+    /// </summary>
+    /// <param name="target"></param>
     private void RotateTowards(Vector3 target)
     {
-        Vector3 direction = target - transform.position;
+        /* Vector pointing from the position towards the target */
+        Vector3 directionVector = target - transform.position;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        /* Store the rotation in a quaternion that is rotated towards the directionVector */
+        Quaternion targetRotation = Quaternion.LookRotation(directionVector);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+        /* Rotate the object smoothly towards the directionVector */
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -106,7 +110,6 @@ public class MovementAI : MonoBehaviour
         }
         else /* If the ray does not hit something */
         {
-            Debug.Log("No hit");
             /* Set the new chekpoint to a point x distance on the new ray */
             newCheckpoint = newDirectionRay.GetPoint(pathLength);
         }
