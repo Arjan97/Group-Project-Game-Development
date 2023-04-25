@@ -14,6 +14,7 @@ TagManager:
   - Fireball
   - Iceball
   - AbilityZone
+  - Wall
   layers:
   - Default
   - TransparentFX

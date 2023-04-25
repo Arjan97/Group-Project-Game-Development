@@ -32,9 +32,11 @@ public class MovementAI : MonoBehaviour
     private float randomDegrees;
 
     /* When the agent is within this range of its destination, it gets a new destination */
-    private float arrivingRange = 5;
+    private float arrivingRange = 3;
 
     private bool nearEdge = false;
+
+    private Quaternion targetRotation;
 
     void Start()
     {
@@ -55,28 +57,39 @@ public class MovementAI : MonoBehaviour
         //NearTerrainEdge();
 
         /* Draw a ray in the forward moving direction */
-        Debug.DrawLine(transform.position + new Vector3(0, 1), transform.forward, color: Color.blue);
+        //Debug.DrawLine(transform.position + new Vector3(0, 1), transform.forward, color: Color.blue);
+
+        float distanceFromTarget = Vector3.Distance(transform.position, targetVector);
 
         /* Check if the agent is within arrivingRange of its target */
-        if (Vector3.Distance(transform.position, targetVector) <= arrivingRange)
+        if (distanceFromTarget <= arrivingRange)
         {
-            /* Call method to get a new destination upon reaching its destination */
-            NewDestination();
+            if (distanceFromTarget <= arrivingRange)
+            {
+                //KIf the distance if very small
+                // The object needs to rotate, because it is near a corner
+
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
+
+                //Quaternion.RotateTowards(transform.rotation, targetRotation, 50f);
+
+                if (transform.rotation == targetRotation)
+                {
+                    Debug.Log("Je moeder");
+
+                    NewDestination();
+                }
+            }
+            else
+            {
+                //Call new destination
+                NewDestination();
+            }
+            
         }
         Debug.DrawLine(transform.position, targetVector, Color.white);
 
-        //Mathf.Clamp(targetVector.x, terrain.bounds.min.x, terrain.bounds.max.x);
-        //        Debug.Log("Targetvector: " + targetVector) ;
-
-        float distanceLeftEdge = transform.position.x - terrain.bounds.min.x;
-        float distanceRightEdge = terrain.bounds.max.x - transform.position.x;
-
-        pathLength = distanceLeftEdge;
-
-        
-
-        //Mathf.Clamp(targetVector.x, transform.position.x , distanceLeftEdge);
-        //  Mathf.Clamp(targetVector.z, transform.position.z , distanceLeftEdge);
+        //RotateTowards(targetVector);
     }
 
     private void NearTerrainEdge()
@@ -115,20 +128,30 @@ public class MovementAI : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to call to give this object a new location to move to
+    /// Method to call to get a new location to move to
     /// </summary>
     private void NewDestination()
     {
         /* Set the targetvector equal to a new random vector, gained by calling the GetNewWaypoint() method */
         targetVector = NewCheckpoint();
 
-      /*  Mathf.Clamp(targetVector.x, terrain.bounds.min.x, terrain.bounds.max.x);
-        Mathf.Clamp(targetVector.z, terrain.bounds.min.z, terrain.bounds.max.z);*/
-
-        Debug.Log("Targetvector: " + targetVector);
-
         /* Call the SetDestination method with the new targetvector as parameter to move towards the new vector*/
         agent.SetDestination(targetVector);
+
+        //RotateTowards(targetVector);
+    }
+   
+    private void RotateTowards(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
+
+        direction.y = 0f;
+
+        Quaternion directionRot = Quaternion.Euler(direction);
+        
+        Quaternion rotation = Quaternion.RotateTowards(transform.rotation ,directionRot, 180);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5 * Time.deltaTime);
     }
 
     /// <summary>
@@ -148,24 +171,12 @@ public class MovementAI : MonoBehaviour
         {
             /* If it is a hit, set the new checkpoint to the point that hit */
             newCheckpoint = hit.point;
-
-            Mathf.Clamp(newCheckpoint.x, terrain.bounds.min.x, terrain.bounds.max.x);
-            Mathf.Clamp(newCheckpoint.z, terrain.bounds.min.z, terrain.bounds.max.z);
-
-            /* Draw a black line to see what it hit */
-            Debug.DrawLine(transform.position, newCheckpoint, Color.black);
         }
         else /* If the ray does not hit something */
         {
             Debug.Log("No hit");
             /* Set the new chekpoint to a point x distance on the new ray */
             newCheckpoint = newDirectionRay.GetPoint(pathLength);
-
-            //Mathf.Clamp(newDirectionRay.GetPoint(pathLength).x, terrain.bounds.min.x, terrain.bounds.max.x);
-            //Mathf.Clamp(newDirectionRay.GetPoint(pathLength).z, terrain.bounds.min.z, terrain.bounds.max.z);
-
-            /* Draw a yellow line to see where the checkpoint is */
-            Debug.DrawLine(transform.position, newCheckpoint, Color.yellow);
         }
 
         /* Return the new checkpoint as vector */
