@@ -8,6 +8,10 @@ public class EnemyAnimationController : MonoBehaviour
 
     private MovementAI enemyMovement;
 
+    public bool gettingHit;
+    public bool patrolling;
+    public bool death;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +19,18 @@ public class EnemyAnimationController : MonoBehaviour
         enemyMovement = GetComponent<MovementAI>();
 
         ActivateParameter("Walking");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void PlayDeathAnimation()
+    {
+        ActivateParameter("Death");
     }
     private void ActivateParameter(string parameterName)
     {
