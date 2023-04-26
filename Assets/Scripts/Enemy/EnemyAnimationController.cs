@@ -1,21 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyAnimationController : MonoBehaviour
 {
     private Animator animator;
-    public static EnemyAnimationController enemyController;
 
     private MovementAI enemyMovement;
-
-    public bool gettingHit;
-    public bool patrolling;
-    public bool death;
+    
+    private string currentParameterBoolName;
 
     private void Awake()
     {
-        enemyController = this;
+
     }
     // Start is called before the first frame update
     void Start()
@@ -23,33 +21,61 @@ public class EnemyAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();   
         enemyMovement = GetComponent<MovementAI>();
 
-        ActivateParameter("Walking");
-        
+        ActivateParameterBool(currentParameterBoolName);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PlayDeathAnimation();
+        }
     }
-    private void PlayAnimation(string stateName)
+    public void PlayAnimation(string stateName)
     {
-        DeactivateParametersExcept("");
-        ActivateParameter(stateName);
-
+        DeactivateParameterBoolsExcept(stateName);
+        ActivateParameterBool(stateName);
     }
+
+    public void PlayGettingHitAnimation()
+    {
+        currentParameterBoolName = "GettingHit";
+
+  
+    }
+    /// <summary>
+    /// 
+    /// </summary>
     private void PlayDeathAnimation()
     {
-        DeactivateParametersExcept("Death");
-        ActivateParameter("Death");
+        currentParameterBoolName = "Death";
+
+        int randomNumber = Random.Range((int)1, (int)2);
+
+        animator.SetInteger("DeathAnimationNumber", randomNumber);
+
+        DeactivateParameterBoolsExcept(currentParameterBoolName);
+        ActivateParameterBool(currentParameterBoolName);
+
+        Debug.Log(randomNumber);
+
+        Debug.Log(currentParameterBoolName);
     }
-    private void ActivateParameter(string parameterName)
+    /// <summary>
+    /// Activates the given parameter bool of the animator to start playing an animation
+    /// </summary>
+    /// <param name="parameterName"></param>
+    private void ActivateParameterBool(string parameterName)
     {
-        DeactivateParametersExcept(parameterName);
         animator.SetBool(parameterName, true);
     }
-
-    private void DeactivateParametersExcept(string parameterName)
+    
+    /// <summary>
+    /// Sets all bool parameters of the animator component to false, except the given parameter, to stop playing the animations
+    /// </summary>
+    /// <param name="parameterName"></param>
+    private void DeactivateParameterBoolsExcept(string parameterName)
     {
         foreach (AnimatorControllerParameter parameter in animator.parameters)
         {
