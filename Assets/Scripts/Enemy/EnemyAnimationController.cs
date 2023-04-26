@@ -11,6 +11,8 @@ public class EnemyAnimationController : MonoBehaviour
 
     private string currentParameterBoolName;
 
+    public bool playedDeathAnimation = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,30 +20,22 @@ public class EnemyAnimationController : MonoBehaviour
 
         currentParameterBoolName = "WalkForwardUnarmed";
         PlayAnimation(currentParameterBoolName);
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             PlayDeathAnimation();
+            //StartCoroutine(WaitForAnimationEnd("Death"));
+
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             PlayGettingHitAnimation();
 
-        }
-
-
-
-
-        if (IsPlayingAnimationWithTag("Death"))
-        {
-            Debug.Log("ja");
         }
     }
     public void PlayAnimation(string stateName)
@@ -66,12 +60,21 @@ public class EnemyAnimationController : MonoBehaviour
     /// Decides which death animation based on a random number
     /// </summary>
     public void PlayDeathAnimation()
-    {
-        currentParameterBoolName = "Death";
+    {   
+        currentParameterBoolName = "Death";        
 
-        animator.SetInteger("DeathAnimationNumber", RandomNumberBetween(1, 3));
+        /* If statement to only play the animation once */
+        if (!playedDeathAnimation)
+        {
+            /* Set the int parameter to a random number to decide what death animation will be played */
+            animator.SetInteger("DeathAnimationNumber", RandomNumberBetween(1, 3));
 
-        PlayAnimation(currentParameterBoolName);
+            /* Play the animation */
+            PlayAnimation(currentParameterBoolName);
+        }
+
+        /* Set to true to not perform above code again */
+        playedDeathAnimation = true;
     }
     /// <summary>
     /// Activates the given parameter bool of the animator to start playing an animation
@@ -97,7 +100,7 @@ public class EnemyAnimationController : MonoBehaviour
         }
     }
 
-    private bool IsPlayingAnimationWithTag(string tagName)
+    public bool IsPlayingAnimationWithTag(string tagName)
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsTag(tagName) &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
@@ -112,23 +115,9 @@ public class EnemyAnimationController : MonoBehaviour
 
     public IEnumerator WaitForAnimationEnd(string animationTagName)
     {
-        while (IsPlayingAnimationWithTag(animationTagName))
-        {
-            yield return null;
-        }
-    }
+        while (!IsPlayingAnimationWithTag(animationTagName)) yield return null;
 
-    public AnimationClip FindAnimation(string name)
-    {
-        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
-        {
-            if (clip.name == name)
-            {
-                return clip;
-            }
-        }
-
-        return null;
+        Debug.Log("sdfsad");
     }
 
     private int RandomNumberBetween(int minInclusive, int maxExclusive)

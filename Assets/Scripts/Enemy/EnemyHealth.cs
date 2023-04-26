@@ -26,28 +26,46 @@ public class EnemyHealth : MonoBehaviour
     public GameObject healthBarUI;
 
     private EnemyAnimationController animationController;
+
+    private bool countedAsDeath = false;
     void Start()
     {
         currentHealth = maxHealth;
-        slider.value = CalculateHealth();
+        //slider.value = CalculateHealth();
 
         animationController = GetComponent<EnemyAnimationController>();
     }
 
     private void Update()
     {
-        slider.value = CalculateHealth();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TakeDamage(100f);
+        }
+
+        //slider.value = CalculateHealth();
+        
         if (currentHealth < maxHealth)
         {
-            healthBarUI.SetActive(true);
+            //healthBarUI.SetActive(true);
         }
 
         if (currentHealth <= 0)
         {
-            animationController.PlayDeathAnimation();
+            //Play death animation only once 
+            //Wait a few seconds before setting this object to death
+            if (!countedAsDeath)
+            {
+                animationController.PlayDeathAnimation();
+                StartCoroutine(SetToDeathAfterSeconds(5));
+            }
 
-            //StartCoroutine(Wait)
-            
+            //If health < 0 and counted as death they can be destroyed
+            if (countedAsDeath)
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (currentHealth > maxHealth)
@@ -56,9 +74,14 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    private IEnumerator SetToDeathAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        countedAsDeath = true;
+    }
     float CalculateHealth()
     {
-       return currentHealth / maxHealth;
+        return currentHealth / maxHealth;
     }
 
     public void TakeDamage(float damageAmount)
@@ -66,7 +89,7 @@ public class EnemyHealth : MonoBehaviour
         if (!invincible)
         {
             currentHealth -= damageAmount;
-            StartCoroutine(GetsDamaged());
+            //StartCoroutine(GetsDamaged());
             Debug.Log("enemy taking damage, amount:" + damageAmount);
 
             animationController.PlayGettingHitAnimation();
@@ -108,7 +131,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void ApplyBurn(int ticks)
     {
-        if (burnTickTimers.Count <= 0) { 
+        if (burnTickTimers.Count <= 0)
+        {
             burnTickTimers.Add(ticks);
             StartCoroutine(OnFireEnemy());
         }
@@ -126,7 +150,7 @@ public class EnemyHealth : MonoBehaviour
 
         while (burnTickTimers.Count > 0)
         {
-            for(int i = 0; i < burnTickTimers.Count; i++)
+            for (int i = 0; i < burnTickTimers.Count; i++)
             {
                 burnTickTimers[i]--;
             }
