@@ -31,6 +31,8 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+
+        // <<< REMOVE COMMENT >>>
         //slider.value = CalculateHealth();
 
         animationController = GetComponent<EnemyAnimationController>();
@@ -38,16 +40,19 @@ public class EnemyHealth : MonoBehaviour
 
     private void Update()
     {
-
+        //Developer code to test taking damage and the animaiton with it
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TakeDamage(100f);
+            TakeDamage(1f);
         }
 
+
+        // <<< REMOVE COMMENT >>>
         //slider.value = CalculateHealth();
         
         if (currentHealth < maxHealth)
         {
+            // <<< REMOVE COMMENT >>>
             //healthBarUI.SetActive(true);
         }
 
@@ -89,6 +94,8 @@ public class EnemyHealth : MonoBehaviour
         if (!invincible)
         {
             currentHealth -= damageAmount;
+
+            // <<< REMOVE COMMENT >>>
             //StartCoroutine(GetsDamaged());
             Debug.Log("enemy taking damage, amount:" + damageAmount);
 
