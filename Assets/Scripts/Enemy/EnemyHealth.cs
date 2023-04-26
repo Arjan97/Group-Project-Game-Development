@@ -24,10 +24,14 @@ public class EnemyHealth : MonoBehaviour
     //UI
     public Slider slider;
     public GameObject healthBarUI;
+
+    private EnemyAnimationController animationController;
     void Start()
     {
         currentHealth = maxHealth;
         slider.value = CalculateHealth();
+
+        animationController = GetComponent<EnemyAnimationController>();
     }
 
     private void Update()
@@ -40,7 +44,10 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            animationController.PlayDeathAnimation();
+
+            //StartCoroutine(Wait)
+            
         }
 
         if (currentHealth > maxHealth)
@@ -61,6 +68,8 @@ public class EnemyHealth : MonoBehaviour
             currentHealth -= damageAmount;
             StartCoroutine(GetsDamaged());
             Debug.Log("enemy taking damage, amount:" + damageAmount);
+
+            animationController.PlayGettingHitAnimation();
         }
     }
 

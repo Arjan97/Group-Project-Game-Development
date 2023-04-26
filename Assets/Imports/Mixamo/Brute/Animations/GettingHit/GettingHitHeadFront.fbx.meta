@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: d7a94a3cb5d182f49baf75a108e3225b
+guid: 42c70ffb55fa92f40884c97a24490b1f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: GettingHit1
+    second: GettingHitHeadFront
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,18 +36,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: GettingHit1
+      name: GettingHitHeadFront
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
