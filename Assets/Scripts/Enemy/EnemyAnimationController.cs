@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAnimationController : MonoBehaviour
 {
     private Animator animator;
+    public static EnemyAnimationController enemyController;
 
     private MovementAI enemyMovement;
 
@@ -12,6 +13,10 @@ public class EnemyAnimationController : MonoBehaviour
     public bool patrolling;
     public bool death;
 
+    private void Awake()
+    {
+        enemyController = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +32,15 @@ public class EnemyAnimationController : MonoBehaviour
     {
 
     }
+    private void PlayAnimation(string stateName)
+    {
+        DeactivateParametersExcept("");
+        ActivateParameter(stateName);
 
+    }
     private void PlayDeathAnimation()
     {
+        DeactivateParametersExcept("Death");
         ActivateParameter("Death");
     }
     private void ActivateParameter(string parameterName)

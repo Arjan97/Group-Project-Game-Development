@@ -32,7 +32,7 @@ public class MovementAI : MonoBehaviour
     private float randomDegrees;
 
     /* When the agent is within this range of its destination, it gets a new destination */
-    private float arrivingRange = 2f;
+    private float arrivingRange = 1.5f;
 
     public bool chasing;
     public bool patrolling;
@@ -43,7 +43,7 @@ public class MovementAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         /* Give the agent a new destination at start */
-        NewDestination();
+        GetNewCheckpoint();
     }
 
     void Update()
@@ -58,7 +58,7 @@ public class MovementAI : MonoBehaviour
         if (distanceFromTarget <= arrivingRange)
         {
             /* Call method to get a new destination if it is close */
-            NewDestination();
+            GetNewCheckpoint();
         }
 
         /* Draw a white line in the editor to see where the targetvector is */
@@ -68,7 +68,7 @@ public class MovementAI : MonoBehaviour
     /// <summary>
     /// Method to call to get a new location to move to
     /// </summary>
-    private void NewDestination()
+    private void GetNewCheckpoint()
     {
         /* Set the targetvector equal to a new random vector, gained by calling the GetNewWaypoint() method */
         targetVector = NewCheckpoint();
