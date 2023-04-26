@@ -51,7 +51,7 @@ public class EnemyAnimationController : MonoBehaviour
     {
         currentParameterBoolName = "Death";
 
-        int randomNumber = Random.Range((int)1, (int)2);
+        int randomNumber = Random.Range(1, 3);
 
         animator.SetInteger("DeathAnimationNumber", randomNumber);
 
