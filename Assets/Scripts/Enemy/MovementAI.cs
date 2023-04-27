@@ -16,6 +16,8 @@ public class MovementAI : MonoBehaviour
     /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
 
+    private EnemyFOV fieldOfView;
+
     /* Variable of type Vector3 that this agent will move towards */
     private Vector3 targetVector;
 
@@ -41,6 +43,7 @@ public class MovementAI : MonoBehaviour
     {
         /* Get the navMeshAgent component */
         agent = GetComponent<NavMeshAgent>();
+        fieldOfView = GetComponent<EnemyFOV>();
 
         /* Give the agent a new destination at start */
         GetNewCheckpoint();
@@ -50,6 +53,12 @@ public class MovementAI : MonoBehaviour
     {
         /* Rotate towards the moving direction */
         RotateTowards(targetVector);
+
+        if (fieldOfView.playerInView)
+        {
+            chasing = true;
+            Debug.Log("Alert!");
+        }
 
         /* Get the distance between the targetVector and the current position */
         float distanceFromTarget = Vector3.Distance(transform.position, targetVector);

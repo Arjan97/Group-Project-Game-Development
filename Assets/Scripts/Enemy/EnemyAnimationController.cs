@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,10 +15,13 @@ public class EnemyAnimationController : MonoBehaviour
     /* Bool to track if the death animation has already been played */
     private bool playedDeathAnimation = false;
 
+    private int layerNumber = 0;
+
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         animator = GetComponent<Animator>();
+
 
         /* Set the base animation of to the WalkForwardUnarmed animation */
         currentParamaterName = "WalkForwardUnarmed";
@@ -85,8 +89,8 @@ public class EnemyAnimationController : MonoBehaviour
     /// <returns></returns>
     public bool IsPlayingAnimationWithTag(string tagName)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsTag(tagName) &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        if (animator.GetCurrentAnimatorStateInfo(layerNumber).IsTag(tagName) &&
+            animator.GetCurrentAnimatorStateInfo(layerNumber).normalizedTime < 1.0f)
         {
             return true;
         }
