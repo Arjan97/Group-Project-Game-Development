@@ -38975,12 +38975,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f791c4e51335d4aa9a608d1cbfd745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   angleMin: -90
   angleMax: 90
   pathLength: 10
   rotateSpeed: 5
-  chasing: 0
+  withinAttackRange: 3
+  chasingPlayer: 0
+  playerInAttackRange: 0
   patrolling: 0
+  idle: 0
 --- !u!1001 &1496369584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41551,12 +41555,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f791c4e51335d4aa9a608d1cbfd745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1806849763}
   angleMin: -90
   angleMax: 90
   pathLength: 10
   rotateSpeed: 5
-  chasing: 0
+  withinAttackRange: 3
+  chasingPlayer: 0
+  playerInAttackRange: 0
   patrolling: 0
+  idle: 0
 --- !u!195 &1576513917
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -41619,9 +41627,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e46b7c70b6a264daec61b3ac197e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
-  angle: 0
-  player: {fileID: 0}
+  radius: 6.99
+  angle: 247
+  player: {fileID: 1806849759}
   playerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -41629,9 +41637,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerInView: 0
-  showRadius: 0
-  showAngle: 0
-  showPlayerInView: 0
+  showRadius: 1
+  showAngle: 1
+  showPlayerInView: 1
 --- !u!1001 &1576695344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46738,12 +46746,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f791c4e51335d4aa9a608d1cbfd745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   angleMin: -90
   angleMax: 90
   pathLength: 10
   rotateSpeed: 5
-  chasing: 0
+  withinAttackRange: 3
+  chasingPlayer: 0
+  playerInAttackRange: 0
   patrolling: 0
+  idle: 0
 --- !u!195 &1742265516
 NavMeshAgent:
   m_ObjectHideFlags: 0

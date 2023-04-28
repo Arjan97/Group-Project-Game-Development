@@ -10,11 +10,13 @@ public class FOVeditor : Editor
         EnemyFOV fov = (EnemyFOV)target;
         Handles.color = Color.white;
        
+        //Draw a white radius around the enemy if enabled by the EnemyFOV script
         if (fov.showRadius) Handles.DrawWireArc(fov.transform.position + new Vector3(0,1,0), Vector3.up, Vector3.forward, 360, fov.radius);
 
         Vector3 viewAngleLeft = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
         Vector3 viewAngleRight = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angle / 2);
 
+        //Draw two lines indicating the radius of the FOV from the enemy if enabled by the EnemyFOV script
         if (fov.showAngle)
         {
             Handles.color = Color.magenta;
@@ -22,6 +24,7 @@ public class FOVeditor : Editor
             Handles.DrawLine(fov.transform.position + new Vector3(0, 1, 0), fov.transform.position + new Vector3(0, 1, 0) + viewAngleRight * fov.radius);
         }
 
+        //Draw a green line from the enemy to the player if the player is in the radius and this is enabled by the EnemyFOV script
         if (fov.playerInView && fov.showPlayerInView)
         {
             Handles.color = Color.green;

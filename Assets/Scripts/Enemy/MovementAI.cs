@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
@@ -16,19 +17,24 @@ public class MovementAI : MonoBehaviour
     /* Variable to access the NavMesh component of this GameObject */
     private NavMeshAgent agent;
 
+    public Transform player;
+
     private EnemyFOV fieldOfView;
+
+    private EnemyAnimationController animationController;
 
     /* Variable of type Vector3 that this agent will move towards */
     private Vector3 targetVector;
 
     /* Minimum and maximum values that will determine the new direction to move to */
-    [SerializeField] private float angleMin = -90f;
-    [SerializeField] private float angleMax = 90f;
+    [SerializeField] [Tooltip("Minimum angle to determine a new path")] private float angleMin = -90f; 
+    [SerializeField] [Tooltip("Maximum angle to determine a new path")] private float angleMax = 90f;
 
     /* The length of the path of the agent before getting a new path */
+    [Tooltip("Length of the moving path")]
     [SerializeField] private float pathLength = 10;
 
-    [SerializeField] private float rotateSpeed = 5f;  
+    [SerializeField] private float rotateSpeed = 5f;
 
     /* Float to store the new angle for a new direction, calculated randomly between angleMin and angleMax */
     private float randomDegrees;
@@ -36,14 +42,20 @@ public class MovementAI : MonoBehaviour
     /* When the agent is within this range of its destination, it gets a new destination */
     private float arrivingRange = 1.5f;
 
-    public bool chasing;
+    [Tooltip("Attacks the player when this close")]
+    public float withinAttackRange = 3f;
+    
+    public bool chasingPlayer;
+    public bool playerInAttackRange = false;
     public bool patrolling;
+    public bool idle;
 
     void Start()
     {
         /* Get the navMeshAgent component */
         agent = GetComponent<NavMeshAgent>();
         fieldOfView = GetComponent<EnemyFOV>();
+        animationController = GetComponent<EnemyAnimationController>();
 
         /* Give the agent a new destination at start */
         GetNewCheckpoint();
@@ -56,18 +68,19 @@ public class MovementAI : MonoBehaviour
 
         if (fieldOfView.playerInView)
         {
-            chasing = true;
-            Debug.Log("Alert!");
+            ChasePlayer();
         }
-
-        /* Get the distance between the targetVector and the current position */
-        float distanceFromTarget = Vector3.Distance(transform.position, targetVector);
-
-        /* Check if the agent is within arrivingRange of its target */
-        if (distanceFromTarget <= arrivingRange)
+        else
         {
-            /* Call method to get a new destination if it is close */
-            GetNewCheckpoint();
+            /* Get the distance between the targetVector and the current position */
+            float distanceFromTarget = Vector3.Distance(transform.position, targetVector);
+
+            /* Check if the agent is within arrivingRange of its target */
+            if (distanceFromTarget <= arrivingRange)
+            {
+                /* Call method to get a new destination if it is close */
+                GetNewCheckpoint();
+            }
         }
 
         /* Draw a white line in the editor to see where the targetvector is */
@@ -88,9 +101,44 @@ public class MovementAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        targetVector = player.position;
+       
+        agent.SetDestination(targetVector);
+
+        float distanceFromPlayer = Vector3.Distance(transform.position, targetVector);
+
+        if (distanceFromPlayer < withinAttackRange)
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+
+            AttackPlayer(directionToPlayer);
+
+
+            Debug.Log("In attack range");
+            agent.isStopped = true;
+        }
+    }
+
+    private void AttackPlayer(Vector3 direction)
+    {
+        if (!playerInAttackRange)
+        {
+            animationController.PlayAnimation("Attack");
+            playerInAttackRange = true;
+        }
+
+        playerInAttackRange = true;
+
+        //Code to fire an ability here
+    }
+
+    private IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        Debug.Log("test");
 
     }
-   
     /// <summary>
     /// Method to rotate the object towards the given target
     /// </summary>
